@@ -1,0 +1,25 @@
+<app-header-customer></app-header-customer>
+<body>
+<div class="container">
+
+<ng-container *ngIf="selectedComponent==='home'">
+  <app-home-customer></app-home-customer>
+</ng-container>
+<ng-container *ngIf="selectedComponent==='detail-product'">
+  <app-detail-product-customer [productId]="productId"></app-detail-product-customer>
+</ng-container>
+<ng-container *ngIf="selectedComponent==='bill'">
+  <app-bill-customer [data]="sendData"></app-bill-customer>
+</ng-container>
+<ng-container *ngIf="selectedComponent==='cart'">
+  <app-cart-customer></app-cart-customer>
+</ng-container>
+<ng-container *ngIf="selectedComponent==='contact'">
+  <app-contact-customer></app-contact-customer>
+</ng-container>
+<ng-container *ngIf="selectedComponent==='product'">
+  <app-product-customer></app-product-customer>
+</ng-container>
+</div>
+</body>
+<app-footer-customer></app-footer-customer>
