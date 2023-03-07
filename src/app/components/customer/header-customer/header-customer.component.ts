@@ -8,8 +8,8 @@ import {SendRequest} from "../../../commons/request/SendRequest";
 })
 export class HeaderCustomerComponent implements OnInit {
   headerIsScrolled!: boolean;
-  sendRequest!: SendRequest;
-  @Output() sendData = new EventEmitter<SendRequest>();
+  sendRequest!: SendRequest<number>;
+  @Output() sendData = new EventEmitter<SendRequest<number>>();
   constructor() { }
   ngOnInit(): void {
   }

@@ -19,8 +19,7 @@ export class CustomerComponent implements OnInit {
   @ViewChild(HeaderCustomerComponent) headerChild!: HeaderCustomerComponent;
   productId!: number;
   selectedComponent: string = 'home';
-  sendData!:SendRequest;
-  billRequest!: SendRequest;
+  sendData!:SendRequest<number>;
 
   constructor(private route: ActivatedRoute) {
   }
@@ -35,7 +34,7 @@ export class CustomerComponent implements OnInit {
 
   }
 
-  ngAfterViewChecked() {
+    ngAfterViewChecked() {
     if (this.detailProductChild != undefined) {
       this.detailProductChild.sendData.subscribe(data => {
         this.sendData = data;

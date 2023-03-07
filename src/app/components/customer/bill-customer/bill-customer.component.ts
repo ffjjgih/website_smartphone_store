@@ -7,7 +7,7 @@ import {SendRequest} from "../../../commons/request/SendRequest";
   styleUrls: ['./bill-customer.component.css']
 })
 export class BillCustomerComponent implements OnInit {
-  @Input() data!: SendRequest;
+  @Input() data!: SendRequest<number>;
   constructor() { }
 
   ngOnInit(): void {

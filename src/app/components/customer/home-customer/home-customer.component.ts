@@ -8,8 +8,8 @@ import {SendRequest} from "../../../commons/request/SendRequest";
   styleUrls: ['./home-customer.component.css']
 })
 export class HomeCustomerComponent implements OnInit {
-  @Output() sendData = new EventEmitter<SendRequest>();
-  sendRequest!: SendRequest;
+  @Output() sendData = new EventEmitter<SendRequest<number>>();
+  sendRequest!: SendRequest<number>;
   constructor(private router: Router) {
   }
   ngOnInit() {

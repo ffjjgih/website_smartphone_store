@@ -6,6 +6,7 @@ import { AppComponent } from './app.component'
 import {RouterModule, ROUTES, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,9 @@ import {HttpClientModule} from "@angular/common/http";
     CommonModule,
     RouterModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers:[
   ],

@@ -1,18 +1,13 @@
 import { NgModule } from '@angular/core';
 import {Route, RouterModule} from "@angular/router";
-import {HomeAdminComponent} from "./home-admin/home-admin.component";
+import {AdminComponent} from "./admin.component";
 
 
 
 export const AdminRouting: Route[] = [
   {
-    path: 'admin',
-    children: [
-      {
         path: '',
-        component: HomeAdminComponent
-      }
-    ]
+        component: AdminComponent
   }
 ]
 @NgModule({

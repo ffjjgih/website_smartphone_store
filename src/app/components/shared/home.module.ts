@@ -19,7 +19,7 @@ export class HomeModule { }
 
 export function configHomeRoutes(authService: AuthService){
   let routes: Routes = [];
-  if (authService.isAuthorized()) {
+  if (!authService.isAuthorized()) {
     routes = [
       {
         path: '',

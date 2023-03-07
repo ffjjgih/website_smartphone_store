@@ -13,6 +13,7 @@ import { BillCustomerComponent } from './bill-customer/bill-customer.component';
 import { CartCustomerComponent } from './cart-customer/cart-customer.component';
 import { ContactCustomerComponent } from './contact-customer/contact-customer.component';
 import { ProductCustomerComponent } from './product-customer/product-customer.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProductCustomerComponent } from './product-customer/product-customer.co
     BillCustomerComponent,
     CartCustomerComponent,
     ContactCustomerComponent,
-    ProductCustomerComponent
+    ProductCustomerComponent,
+    SignUpComponent
   ],
   imports: [
     HttpClientModule,

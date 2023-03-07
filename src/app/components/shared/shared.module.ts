@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from '@angular/common/http';
 import {LoginComponent} from "./login/login.component";
+import {RouterLink} from "@angular/router";
 
 ;
 
@@ -10,12 +11,13 @@ import {LoginComponent} from "./login/login.component";
   declarations: [
     LoginComponent
   ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterLink,
+    ],
 })
 export class SharedModule {
 

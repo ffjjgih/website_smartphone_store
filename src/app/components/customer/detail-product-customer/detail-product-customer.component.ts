@@ -8,9 +8,10 @@ import {SendRequest} from "../../../commons/request/SendRequest";
 })
 export class DetailProductCustomerComponent implements OnInit {
   @Input() productId!: number;
-  @Output() sendData = new EventEmitter<SendRequest>();
-  sendRequest!:SendRequest;
-  constructor() { }
+  @Output() sendData = new EventEmitter<SendRequest<number>>();
+  sendRequest!:SendRequest<number>;
+  constructor() {
+  }
 
   ngOnInit(): void {
 

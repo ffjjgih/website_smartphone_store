@@ -1,7 +1,7 @@
-export class SendRequest{
+export class SendRequest<T>{
   api!: string;
   method!: string;
-  data!:number;
+  data!:T;
   productsId!: number[];
   description!: string;
 }
