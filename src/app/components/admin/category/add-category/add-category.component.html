@@ -13,8 +13,8 @@
           </div>
           <div class="card-body text-center pt-0">
             <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true" style="">
-              <div class="image-input-wrapper w-150px h-150px" *ngIf="attachmentResponse!=null && attachmentResponse.url!=null" style="background-image: url({{attachmentResponse.url}})"></div>
-              <div class="image-input-wrapper w-150px h-150px" *ngIf="attachmentResponse==null || attachmentResponse.url==null" style="background-image: url()"></div>
+              <div *ngIf="images" class="image-input-wrapper w-150px h-150px" [style.background-image]="'url(' + images + ')'"></div>
+              <div *ngIf="!images" class="image-input-wrapper w-150px h-150px"></div>
               <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
                 <i class="bi bi-pencil-fill fs-7"></i>
                 <input type="file" name="avatar" accept=".png, .jpg, .jpeg" (change)="uploadFile($event)">

@@ -5,8 +5,8 @@
   <app-add-category (sendData)="selectComponent($event)"></app-add-category>
 </ng-container>
 <ng-container *ngIf="typeView==='detail'">
-  <app-add-category></app-add-category>
+  <app-detail-category [categoryId]="sendRequest.data.id" (sendData)="selectComponent($event)"></app-detail-category>
 </ng-container>
 <ng-container *ngIf="typeView==='edit'">
-  <app-edit-category [categoryId]="1"></app-edit-category>
+  <app-edit-category [data]="sendRequest.data" (sendData)="selectComponent($event)"></app-edit-category>
 </ng-container>

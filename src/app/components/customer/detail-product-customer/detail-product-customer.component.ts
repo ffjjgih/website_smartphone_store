@@ -22,7 +22,6 @@ export class DetailProductCustomerComponent implements OnInit {
     this.sendRequest.data = this.productId;
     this.sendRequest.api = 'bill';
     this.sendRequest.method = 'GET';
-    console.log(this.sendRequest);
     this.sendData.emit(this.sendRequest);
   }
 

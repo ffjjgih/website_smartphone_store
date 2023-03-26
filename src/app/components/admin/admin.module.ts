@@ -12,7 +12,19 @@ import { ViewCategoryComponent } from './category/view-category/view-category.co
 import { CategoryComponent } from './category/category/category.component';
 import { EditCategoryComponent } from './category/edit-category/edit-category.component';
 import { DetailCategoryComponent } from './category/detail-category/detail-category.component';
-
+import { BrandComponent } from './brand/brand.component';
+import { ViewBrandComponent } from './brand/view-brand/view-brand.component';
+import { AddBrandComponent } from './brand/add-brand/add-brand.component';
+import { EditBrandComponent } from './brand/edit-brand/edit-brand.component';
+import { DetailBrandComponent } from './brand/detail-brand/detail-brand.component';
+import { SupplierComponent } from './supplier/supplier.component';
+import { ViewSupplierComponent } from './supplier/view-supplier/view-supplier.component';
+import { DetailSupplierComponent } from './supplier/detail-supplier/detail-supplier.component';
+import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.component';
+import { EditSupplierComponent } from './supplier/edit-supplier/edit-supplier.component';
+import { ProductComponent } from './product/product/product.component';
+import { CreateProductComponent } from './product/create-product/create-product.component';
+import { ViewProductComponent } from './product/view-product/view-product.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -23,7 +35,20 @@ import { DetailCategoryComponent } from './category/detail-category/detail-categ
     ViewCategoryComponent,
     CategoryComponent,
     EditCategoryComponent,
-    DetailCategoryComponent
+    DetailCategoryComponent,
+    BrandComponent,
+    ViewBrandComponent,
+    AddBrandComponent,
+    EditBrandComponent,
+    DetailBrandComponent,
+    SupplierComponent,
+    ViewSupplierComponent,
+    DetailSupplierComponent,
+    AddSupplierComponent,
+    EditSupplierComponent,
+    ProductComponent,
+    CreateProductComponent,
+    ViewProductComponent
   ],
   imports: [
     CommonModule,

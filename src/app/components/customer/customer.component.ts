@@ -39,20 +39,17 @@ export class CustomerComponent implements OnInit {
       this.detailProductChild.sendData.subscribe(data => {
         this.sendData = data;
         this.selectedComponent = this.sendData.api;
-        console.log(this.selectedComponent);
       });
     }
     if (this.headerChild != undefined) {
       this.headerChild.sendData.subscribe(data => {
         this.sendData = data;
         this.selectedComponent = this.sendData.api;
-        console.log(this.selectedComponent);
       });
     }
   }
 
   ngAfterHeaderChecked() {
-    console.log(this.headerChild);
 
   }
   ngOnInit() {

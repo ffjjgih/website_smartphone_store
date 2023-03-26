@@ -1,0 +1,111 @@
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Container-->
+    <div class=" container-xxl " id="kt_content_container">
+        <form class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework"
+            data-kt-redirect="/jet-html-free/?page=apps/ecommerce/catalog/categories">
+            <!--begin::Aside column-->
+            <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+                <!--begin::ảnh-->
+                <div class="card card-flush py-4">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2>logo</h2>
+                        </div>
+                    </div>
+                    <div class="card-body text-center pt-0">
+                        <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true" >
+                            <div *ngIf="images" class="image-input-wrapper w-150px h-150px" [style.background-image]="'url(' + images + ')'"></div>
+                            <div *ngIf="!images" class="image-input-wrapper w-150px h-150px"></div>
+                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                data-kt-image-input-action="change" data-bs-toggle="tooltip" title=""
+                                data-bs-original-title="Change avatar">
+                                <i class="bi bi-pencil-fill fs-7"></i>
+                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" (change)="uploadFile($event)">
+                                <input type="hidden" name="avatar_remove">
+                            </label>
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title=""
+                                data-bs-original-title="Cancel avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                data-kt-image-input-action="remove" data-bs-toggle="tooltip" title=""
+                                data-bs-original-title="Remove avatar">
+                                <i class="bi bi-x fs-2"></i>
+                            </span>
+                        </div>
+                        <div class="text-muted fs-7">định dạng *.png, *.jpg and *.jpeg</div>
+                    </div>
+                </div>
+                <!--end::Thumbnail settings-->
+                <!--begin::status-->
+                <div class="card card-flush py-4">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2>trạng thái</h2>
+                        </div>
+                        <div class="card-toolbar" *ngIf="request.status==='hoạt động'">
+                            <div class="rounded-circle bg-success w-15px h-15px"></div>
+                        </div>
+                        <div class="card-toolbar" *ngIf="request.status!=='hoạt động'">
+                            <div class="rounded-circle bg-danger w-15px h-15px"></div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <select class="form-select mb-2 select2-hidden-accessible" data-control="select2"
+                            data-hide-search="true" tabindex="-1" aria-hidden="true" [(ngModel)]="request.status" [ngModelOptions]="{standalone: true}">
+                            <option [value]="['hoạt động']" selected="" data-select2-id="select2-data-8-yyv1">hoạt động</option>
+                            <option [value]="['ngừng hoạt động']">ngừng hoạt động</option>
+                        </select>
+                        <div class="text-muted fs-7">chọn trạng thái.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+                <div class="card card-flush py-4">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2>thông tin chung</h2>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="input-container">
+                            <div class="form-group mb-3">
+                                <label class="required form-label">tên nhà cung cấp</label>
+                                <input type="text" name="supplier_name" class="form-control mb-2" placeholder="tên nhà cung cấp" [(ngModel)]="request.name" required>
+                                <div class="text-muted fs-7">tên nhà cung cấp là bắt buộc và duy nhất</div>
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="required form-label">số điện thoại</label>
+                                <input type="text" name="supplier_phone" class="form-control mb-2" [(ngModel)]="request.phone" placeholder="số điện thoại">
+                            </div>
+                        </div>
+                        <div class="input-container">
+                                <label class="required form-label">email</label>
+                                <input type="text" name="supplier_email" class="form-control mb-2" [(ngModel)]="request.email" placeholder="email">
+                        </div>
+                        <div>
+                            <label class="form-label">địa chỉ</label>
+                            <input class="form-control mb-2" name="supplier_address" [(ngModel)]="request.address" placeholder="địa chỉ">
+                        </div>
+                        <div>
+                            <label class="form-label">mô tả</label>
+                            <textarea class="form-control mb-2" name="supplier_description" [(ngModel)]="request.description" placeholder="mô tả" rows="4"></textarea>
+                            <div class="text-muted fs-7">Đặt mô tả cho nhà cung cấp để hiển thị tốt hơn.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button (mousedown)="cancel()" class="btn btn-light me-5"> Quay lại </button>
+                    <button type="submit" class="btn btn-primary" (mousedown)="create()">
+                        <span class="indicator-label">
+                            <i class="bi bi-check"></i>
+                            Lưu
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

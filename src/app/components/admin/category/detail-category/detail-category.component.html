@@ -1,1 +1,104 @@
-<p>detail-category works!</p>
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Container-->
+    <div class="container-xxl form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framewor">
+        <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+          <!--begin::ảnh-->
+          <div class="card card-flush py-4">
+            <div class="card-header">
+              <div class="card-title">
+                <h2>ảnh loại sản phẩm</h2>
+              </div>
+            </div>
+            <div class="card-body text-center pt-0">
+              <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true">
+                  <div *ngIf="result.attachment!=null && result.attachment.data!=null" class="image-input-wrapper w-150px h-150px" [style.background-image]="'url(data:' + result.attachment.type + ';base64,' + result.attachment.data + ')'"></div>
+                  <div *ngIf="result.attachment==null || result.attachment.data==null" class="image-input-wrapper w-150px h-150px"></div>
+              </div>
+          </div>
+          </div>
+          <!--end::Thumbnail settings-->
+          <!--begin::status-->
+          <div class="card card-flush py-4">
+            <div class="card-header">
+              <div class="card-title">
+                <h2>trạng thái</h2>
+              </div>
+              <div class="card-toolbar" *ngIf="result.status==='hoạt động'">
+                <div class="rounded-circle bg-success w-15px h-15px"></div>
+              </div>
+              <div class="card-toolbar" *ngIf="result.status!=='hoạt động'">
+                <div class="rounded-circle bg-danger w-15px h-15px"></div>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <select class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" tabindex="-1" aria-hidden="true">
+                <option selected="" data-select2-id="select2-data-8-yyv1">{{result.status}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+          <div class="card card-flush py-4">
+            <div class="card-header">
+              <div class="card-title">
+                <h2>thông tin chung</h2>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <div class="mb-10 fv-row fv-plugins-icon-container">
+                <label class="required form-label">tên loại sản phẩm</label>
+                <input type="text" name="category_name" class="form-control mb-2" placeholder="tên loại sản phẩm" [(ngModel)]="result.name" disabled>
+                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+              <div>
+                <label class="form-label">mô tả</label>
+                <textarea class="form-control mb-2" name="category_description" rows="3" placeholder="Product description" rows="8" [(ngModel)]="result.description" disabled></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="container-xxl form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
+    <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+        <div class="card-body pt-0">
+            <div class="d-flex flex-column gap-5 gap-md-7">
+                <div class="fs-3 fw-bolder mb-n2">thông tin chi tiết</div>
+                <div class="d-flex flex-column flex-md-row gap-5">
+                    <div class="fv-row flex-row-fluid fv-plugins-icon-container">
+                        <label class="required form-label">ngày tạo</label>
+                        <input class="form-control" name="category_created_date" [(ngModel)]="result.createdDate" disabled>
+                    <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                    <div class="flex-row-fluid">
+                        <label class="form-label">người tạo</label>
+                        <input class="form-control" name="category_created_by" [(ngModel)]="result.createdBy" disabled>
+                    </div>
+                </div>
+                <div class="d-flex flex-column flex-md-row gap-5">
+                    <div class="fv-row flex-row-fluid fv-plugins-icon-container">
+                        <label class="required form-label">ngày sửa</label>
+                        <input class="form-control" name="category_modified_date" [(ngModel)]="result.modifiedDate" disabled>
+                    <div class="fv-plugins-message-container invalid-feedback"></div></div>
+    
+                    <div class="flex-row-fluid">
+                        <label class="form-label">người sửa</label>
+                        <input class="form-control" name="category_modified_by" [(ngModel)]="result.modifiedBy" disabled>
+                    </div>
+                </div>
+                <div class="fv-row fv-plugins-icon-container" data-select2-id="select2-data-16-dh3f">
+                    <div class="fv-row">
+                        <label class="form-label">số lượng sản phẩm</label>
+                        <div class="form-floating border rounded">
+                            {{result.sumProduct}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button (mousedown)="cancel()" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">
+            Quay lại
+          </button>
+        </div>
+      </div>
+      </div>
+  </div>
+  

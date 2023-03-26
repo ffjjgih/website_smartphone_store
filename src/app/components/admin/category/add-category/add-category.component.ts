@@ -5,6 +5,7 @@ import {AttachmentFileResponse} from "../../../../commons/response/AttachmentFil
 import {AddCategoryRequest} from "../../../../commons/request/AddCategoryRequest";
 import {CategoryService} from "../../../../services/category/category.service";
 import {AddCategoryResponse} from "../../../../commons/response/AddCategoryResponse";
+import { CategoryResult } from 'src/app/commons/result/CategoryResult';
 
 @Component({
   selector: 'app-add-category',
@@ -12,11 +13,12 @@ import {AddCategoryResponse} from "../../../../commons/response/AddCategoryRespo
   styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent implements OnInit{
-  @Output() sendData = new EventEmitter<SendRequest<Number>>();
-  sendRequest!: SendRequest<Number>;
+  @Output() sendData = new EventEmitter<SendRequest<CategoryResult>>();
+  sendRequest!: SendRequest<CategoryResult>;
   attachmentResponse!:AttachmentFileResponse;
   addCategoryRequest!:AddCategoryRequest;
   addCategoryResponse!:AddCategoryResponse;
+  images!:string;
   constructor(private attachmentService: FileAttachmentService,
               private categoryService: CategoryService) {
     this.sendRequest = new SendRequest();
@@ -26,22 +28,9 @@ export class AddCategoryComponent implements OnInit{
     this.addCategoryRequest.status="hoạt động";
   }
   cancel() {
-    alert('cancel');
     this.sendRequest.api = 'home';
     this.sendRequest.method = 'GET';
     this.sendData.emit(this.sendRequest);
-  }
-
-  uploadFile(event: any) {
-    console.log(event);
-    const file = (event.target as HTMLInputElement).files![0];
-    console.log(file);
-    if (file) {
-      this.attachmentService.uploadFile(file).subscribe(res=>{
-        this.attachmentResponse = res as AttachmentFileResponse;
-        this.addCategoryRequest.attachmentId=this.attachmentResponse.id;
-      });
-    }
   }
 
   save() {
@@ -52,5 +41,20 @@ export class AddCategoryComponent implements OnInit{
       this.sendRequest.method = 'GET';
       this.sendData.emit(this.sendRequest);
     });
+  }
+
+  uploadFile(event: any) {
+    const file = (event.target as HTMLInputElement).files![0];
+    const reader = new FileReader();
+  reader.onload = () => {
+    this.images = reader.result as string;
+  }
+  reader.readAsDataURL(file);
+    if (file) {
+      this.attachmentService.uploadFile(file).subscribe(res=>{
+        this.attachmentResponse = res as AttachmentFileResponse;
+        this.addCategoryRequest.attachmentId=this.attachmentResponse.id;
+      });
+    }
   }
 }

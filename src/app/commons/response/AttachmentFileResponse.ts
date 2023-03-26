@@ -2,6 +2,6 @@ export class AttachmentFileResponse{
     id!: number;
     name!: string;
     type!: string;
-    data!: Blob;
+    data!: string;
     url!: string;
 }

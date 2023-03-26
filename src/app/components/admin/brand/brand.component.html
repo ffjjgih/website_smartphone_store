@@ -1,0 +1,12 @@
+<ng-container *ngIf="typeView==='home'">
+    <app-view-brand (sendData)="selectComponent($event)"></app-view-brand>
+</ng-container>
+<ng-container *ngIf="typeView==='add'">
+    <app-add-brand (sendData)="selectComponent($event)"></app-add-brand>
+</ng-container>
+<ng-container *ngIf="typeView==='edit'">
+    <app-edit-brand [data]="sendRequest.data" (sendData)="selectComponent($event)"></app-edit-brand>
+</ng-container>
+<ng-container *ngIf="typeView==='detail'">
+    <app-detail-brand [data]="sendRequest.data" (sendData)="selectComponent($event)"></app-detail-brand>
+</ng-container>

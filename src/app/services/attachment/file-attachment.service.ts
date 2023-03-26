@@ -9,8 +9,13 @@ export class FileAttachmentService {
   api= BASE_API+"attachment";
   httpOptions = {
     headers: new HttpHeaders({
-      'Access-Control-Allow-Origin': 'http://localhost:4200/',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+      'Access-Control-Allow-Origin': 'http://localhost:8080',
+        'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type,Authorization',
+        'Access-Control-Max-Age': '86400',
+        'withCredentials': 'true',
+        'Access-Control-Allow-Credentials': 'true'
+
     }),
   };
 
