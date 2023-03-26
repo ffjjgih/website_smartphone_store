@@ -1,0 +1,19 @@
+/* Cấu hình chiều cao của header */
+header {
+  height: 80px;
+}
+
+/* Cấu hình menu ngang trong header */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  background-color: #f8f9fa;
+}
+
+/* Cấu hình nội dung chính của trang web */
+main {
+  margin: 20px;
+}

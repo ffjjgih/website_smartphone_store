@@ -1,0 +1,12 @@
+<ng-container *ngIf="typeView==='home'">
+  <app-view-category (sendData)="selectComponent($event)"></app-view-category>
+</ng-container>
+<ng-container *ngIf="typeView==='create'">
+  <app-add-category (sendData)="selectComponent($event)"></app-add-category>
+</ng-container>
+<ng-container *ngIf="typeView==='detail'">
+  <app-detail-category [categoryId]="sendRequest.data.id" (sendData)="selectComponent($event)"></app-detail-category>
+</ng-container>
+<ng-container *ngIf="typeView==='edit'">
+  <app-edit-category [data]="sendRequest.data" (sendData)="selectComponent($event)"></app-edit-category>
+</ng-container>
