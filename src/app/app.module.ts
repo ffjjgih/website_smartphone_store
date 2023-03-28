@@ -7,9 +7,6 @@ import {RouterModule, ROUTES, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -22,10 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule
+    FormsModule
   ],
   providers:[
   ],

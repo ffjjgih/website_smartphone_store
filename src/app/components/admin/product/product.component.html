@@ -1,1 +1,6 @@
-<p>product works!</p>
+<ng-container *ngIf="typeView==='home'">
+    <app-view-product (sendData)="selectComponent($event)"></app-view-product>
+</ng-container>
+<ng-container *ngIf="typeView==='add'">
+    <app-create-product (sendData)="selectComponent($event)"></app-create-product>
+</ng-container>
