@@ -10,14 +10,15 @@
                     </div>
                 </div>
                 <div class="card-body text-center pt-0">
-                    <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true"
-                        style="background-image: url(/jet-html-free/assets/media/svg/files/blank-image.svg)">
-                        <div class="image-input-wrapper w-150px h-150px"></div>
+                    <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true">
+                        <div *ngIf="images" class="image-input-wrapper w-150px h-150px"
+                            [style.background-image]="'url(' + images + ')'"></div>
+                        <div *ngIf="!images" class="image-input-wrapper w-150px h-150px"></div>
                         <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                             data-kt-image-input-action="change" data-bs-toggle="tooltip" title=""
                             data-bs-original-title="Change avatar">
                             <i class="bi bi-pencil-fill fs-7"></i>
-                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg">
+                            <input type="file" name="avatar" accept=".png, .jpg, .jpeg" (change)="uploadFile($event)">
                             <input type="hidden" name="avatar_remove">
                         </label>
                         <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -40,28 +41,18 @@
                         <h2>trạng thái</h2>
                     </div>
                     <div class="card-toolbar">
-                        <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+                        <div class="rounded-circle bg-success w-15px h-15px"></div>
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <select class="form-select mb-2 select2-hidden-accessible" data-control="select2"
-                        data-hide-search="true" data-placeholder="Select an option"
-                        id="kt_ecommerce_add_product_status_select"
-                        data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabindex="-1"
-                        aria-hidden="true">
-                        <option value="published" selected="" data-select2-id="select2-data-8-5tim">hoạt động</option>
-                        <option value="draft">hết hàng</option>
-                        <option value="scheduled">đặt hàng trước</option>
-                        <option value="scheduled">ngừng kinh doanh</option>
-                        <option value="inactive">đã xóa</option>
+                    <select class="form-select mb-2 select2-hidden-accessible" [(ngModel)]="request.status"
+                        [ngModelOptions]="{standalone: true}">
+                        <option [value]="['hoạt động']" selected="">hoạt động</option>
+                        <option [value]="['hết hàng']">hết hàng</option>
+                        <option [value]="['đặt hàng trước']">đặt hàng trước</option>
+                        <option [value]="['ngừng kinh doanh']">ngừng kinh doanh</option>
+                        <option [value]="['đã xóa']">đã xóa</option>
                     </select>
-                    <div class="text-muted fs-7">Set the product status.</div>
-                    <div class="d-none mt-10">
-                        <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing
-                            date and time</label>
-                        <input class="form-control flatpickr-input" id="kt_ecommerce_add_product_status_datepicker"
-                            placeholder="Pick date &amp; time" type="text" readonly="readonly">
-                    </div>
                 </div>
             </div>
             <div class="card card-flush py-4">
@@ -72,34 +63,46 @@
                 </div>
                 <div class="card-body pt-0">
                     <label class="form-label">hãng sản xuất</label>
-                    <select class="form-select mb-2 select2-hidden-accessible" data-control="select2"
-                        data-hide-search="true" data-placeholder="Select an option"
-                        id="kt_ecommerce_add_product_status_select"
-                        data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabindex="-1"
-                        aria-hidden="true">
-                        <option value="published" selected="" data-select2-id="select2-data-8-5tim">apple</option>
-                        <option value="draft">xiaomi</option>
-                        <option value="scheduled">vivo</option>
-                        <option value="scheduled">samsung</option>
-                        <option value="inactive">nokia</option>
+                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn hãng sản xuất"
+                        (change)="selectBrand($event)">
+                        <option *ngFor="let item of catalog.brands" [value]="item.brandId">{{item.brandName}}</option>
                     </select>
                     <div class="text-muted fs-7 mb-7">chọn hãng sản xuất</div>
-                    <a href="/jet-html-free/?page=apps/ecommerce/catalog/add-category"
-                        class="btn btn-light-primary btn-sm mb-10">
+                    <button class="btn btn-light-primary btn-sm mb-10">
                         <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)" fill="currentColor"></rect>
+                                <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"
+                                    transform="rotate(-90 11 18)" fill="currentColor"></rect>
                                 <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
                             </svg></span>thêm hãng sản xuất
-                    </a>
+                    </button>
                     <div class="fv-row">
                         <div class="form-check form-check-custom form-check-solid mb-2">
-                            <input class="form-check-input" type="checkbox" value="" checked>
+                            <input class="form-check-input" type="checkbox" (change)="changeSupplier()" checked>
                             <label class="form-check-label">
                                 là nhà cung cấp
                             </label>
                         </div>
                     </div>
+                </div>
+                <div class="card-body pt-0" *ngIf="!isSupplier">
+                    <label class="form-label">nhà cung cấp</label>
+                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn nhà cung cấp"
+                        (change)="selectSupplier($event)">
+                        <option *ngFor="let item of catalog.supplieres" [value]="item.supplierId">{{item.supplierName}}
+                        </option>
+                    </select>
+                    <div class="text-muted fs-7 mb-7">chọn hãng sản xuất</div>
+                    <button class="btn btn-light-primary btn-sm mb-10">
+                        <span class="svg-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
+                                <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"
+                                    transform="rotate(-90 11 18)" fill="currentColor"></rect>
+                                <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
+                            </svg>
+                        </span>thêm nhà cung cấp
+                    </button>
                 </div>
             </div>
             <div class="card card-flush py-4">
@@ -109,26 +112,19 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <select class="form-select mb-2 select2-hidden-accessible" data-control="select2"
-                        data-hide-search="true" data-placeholder="Select an option"
-                        id="kt_ecommerce_add_product_status_select"
-                        data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabindex="-1"
-                        aria-hidden="true">
-                        <option value="published" selected="" data-select2-id="select2-data-8-5tim">điện thoại</option>
-                        <option value="draft">máy tính bảng</option>
-                        <option value="scheduled">tai nghe</option>
-                        <option value="scheduled">đồng hồ thông minh</option>
-                        <option value="inactive">phụ kiện</option>
+                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn loại sản phẩm"
+                        (change)="selectCategory($event)">
+                        <option *ngFor="let item of catalog.categories" [value]="item.categoryId">{{item.categoryName}}
+                        </option>
                     </select>
                     <div class="text-muted fs-7 mb-7">chọn loại sản phẩm</div>
-                    <a href="/jet-html-free/?page=apps/ecommerce/catalog/add-category"
-                        class="btn btn-light-primary btn-sm mb-10">
+                    <button class="btn btn-light-primary btn-sm mb-10">
                         <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none">
                                 <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)" fill="currentColor"></rect>
                                 <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
                             </svg></span>thêm loại sản phẩm
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="card card-flush py-4">
@@ -138,24 +134,19 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <select class="form-select mb-2 select2-hidden-accessible" data-control="select2"
-                        data-hide-search="true" data-placeholder="Select an option"
-                        id="kt_ecommerce_add_product_status_select"
-                        data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabindex="-1"
-                        aria-hidden="true">
-                        <option value="published" selected="" data-select2-id="select2-data-8-5tim">series</option>
-                        <option value="draft">13 series</option>
-                        <option value="scheduled">12 series</option>
+                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="Select an option"
+                        (change)="selectSeries($event)">
+                        <option *ngFor="let item of catalog.series" [value]="item.seriesId">{{item.seriesName}}</option>
                     </select>
                     <div class="text-muted fs-7 mb-7">chọn nhóm sản phẩm</div>
-                    <a href="/jet-html-free/?page=apps/ecommerce/catalog/add-category"
-                        class="btn btn-light-primary btn-sm mb-10">
+                    <button class="btn btn-light-primary btn-sm mb-10" (mousedown)="modelSeries()">
                         <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)" fill="currentColor"></rect>
+                                <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"
+                                    transform="rotate(-90 11 18)" fill="currentColor"></rect>
                                 <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
                             </svg></span>thêm nhóm sản phẩm
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -183,14 +174,14 @@
                                 <div class="mb-10 fv-row fv-plugins-icon-container">
                                     <label class="required form-label">tên sản phẩm</label>
                                     <input type="text" name="product_name" class="form-control mb-2"
-                                        placeholder="Product name" value="">
+                                        placeholder="Product name" [(ngModel)]="request.name">
                                     <div class="text-muted fs-7">tên sản phẩm không được bỏ trống hoặc trùng</div>
-                                    <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <div>
                                     <label class="form-label">mô tả</label>
-                                    <textarea class="form-control mb-2" name="brand_description"
-                                        placeholder="Product description" rows="4"></textarea>
+                                    <textarea class="form-control mb-2" name="product_description"
+                                        placeholder="Product description" rows="4"
+                                        [(ngModel)]="request.description"></textarea>
                                     <div class="text-muted fs-7">Đặt mô tả cho thương hiệu để hiển thị tốt hơn.</div>
                                 </div>
                             </div>
@@ -346,50 +337,61 @@
                             <div class="card-body pt-0">
                                 <div class="mb-10 fv-row fv-plugins-icon-container">
                                     <label class="required form-label">mã vạch</label>
-                                    <input type="text" name="sku" class="form-control mb-2" placeholder="mã vạch"
-                                        value="">
+                                    <input type="text" name="sku" class="form-control mb-2" placeholder="mã vạch" [(ngModel)]="request.barcode">
                                     <div class="text-muted fs-7">nhập mã vạch</div>
-                                    <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                             </div>
                             <div class="card-body pt-0">
                                 <div class="" data-kt-ecommerce-catalog-add-product="auto-options">
-                                    <div id="kt_ecommerce_add_product_options">
-                                        <div class="form-group">
+                                        <div class="form-group" *ngFor="let v of versions; index as i">
                                             <div data-repeater-list="kt_ecommerce_add_product_options"
                                                 class="d-flex flex-column gap-3">
                                                 <div data-repeater-item="" class="form-group d-flex flex-wrap gap-5">
-                                                    <input type="text" placeholder="màu" class="form-control w-100 w-md-125px">
-                                                    <input type="text" class="form-control mw-100 w-90px" placeholder="ram">
-                                                    <input type="text" class="form-control mw-100 w-90px" placeholder="rom">
-                                                    <input type="number" class="form-control mw-100 w-80px" placeholder="số lượng" min="1">
-                                                    <input type="number" class="form-control mw-100 w-150px" placeholder="giá nhập">
-                                                    <input type="number" class="form-control mw-100 w-150px" placeholder="giá bán">
-                                                    <button type="button" data-repeater-delete=""
-                                                        class="btn btn-sm btn-icon btn-light-danger">
+                                                    <input type="text" placeholder="màu"
+                                                        class="form-control w-100 w-md-125px" [(ngModel)]="v.color">
+                                                    <input type="text" class="form-control mw-100 w-90px"
+                                                        placeholder="ram" [(ngModel)]="v.ram">
+                                                    <input type="text" class="form-control mw-100 w-90px"
+                                                        placeholder="rom" [(ngModel)]="v.rom">
+                                                    <input type="number" class="form-control mw-100 w-80px"
+                                                        placeholder="số lượng" min="1" [(ngModel)]="v.quantity">
+                                                    <input type="number" class="form-control mw-100 w-150px"
+                                                        placeholder="giá nhập" [(ngModel)]="v.inPrice">
+                                                    <input type="number" class="form-control mw-100 w-150px"
+                                                        placeholder="giá bán" [(ngModel)]="v.outPrice">
+                                                    <button type="button" class="btn btn-sm btn-icon btn-light-danger"
+                                                        (mousedown)="deleteVersion(i)">
                                                         <span class="svg-icon svg-icon-2">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.5" x="7.05025" y="15.5356" width="12" height="2" rx="1" transform="rotate(-45 7.05025 15.5356)" fill="currentColor"></rect>
-                                                                <rect x="8.46447" y="7.05029" width="12" height="2" rx="1" transform="rotate(45 8.46447 7.05029)" fill="currentColor"></rect>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none">
+                                                                <rect opacity="0.5" x="7.05025" y="15.5356" width="12"
+                                                                    height="2" rx="1"
+                                                                    transform="rotate(-45 7.05025 15.5356)"
+                                                                    fill="currentColor"></rect>
+                                                                <rect x="8.46447" y="7.05029" width="12" height="2"
+                                                                    rx="1" transform="rotate(45 8.46447 7.05029)"
+                                                                    fill="currentColor"></rect>
                                                             </svg></span>
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group mt-5">
-                                            <button type="button" data-repeater-create=""
-                                                class="btn btn-sm btn-light-primary">
+                                            <button type="button" class="btn btn-sm btn-light-primary"
+                                                (mousedown)="addVersion()">
                                                 <span class="svg-icon svg-icon-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                        <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"transform="rotate(-90 11 18)" fill="currentColor"></rect>
-                                                        <rect x="6" y="11" width="12" height="2" rx="1"fill="currentColor"></rect>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"
+                                                            transform="rotate(-90 11 18)" fill="currentColor"></rect>
+                                                        <rect x="6" y="11" width="12" height="2" rx="1"
+                                                            fill="currentColor"></rect>
                                                     </svg>
-                                                </span> 
+                                                </span>
                                                 thêm biến thể
                                             </button>
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
 
@@ -398,6 +400,172 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <h2>thông tin chi tiết</h2>
+                                </div>
+                                <div class="card-body pt-0 pb-5">
+                                    <div class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span class="required">kích thước màn hình</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="6.67 inch" [(ngModel)]="request.detail.screenSize">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span>công nghệ màn hình</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid" placeholder="IPS" [(ngModel)]="request.detail.screenResolution">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span class="required">độ phân giải</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid" placeholder="6.67 inch" [(ngModel)]="request.detail.screenTechnology">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span>tần số quét</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid" placeholder="IPS" [(ngModel)]="request.detail.sweepFrequency">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span class="required">camera trước</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="6.67 inch"
+                                                        [(ngModel)]="request.detail.cameraFront">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span>camera sau</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="IPS" [(ngModel)]="request.detail.cameraRear">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span class="required">dung lượng pin</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="6.67 inch"
+                                                        [(ngModel)]="request.detail.pinCapacity">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span>tốc độ sạc</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="IPS" [(ngModel)]="request.detail.chargingSpeed">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span class="required">cổng sạc</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="6.67 inch"
+                                                        [(ngModel)]="request.detail.chargingType">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span>hệ điều hành</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="IPS" [(ngModel)]="request.detail.os">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span class="required">cpu</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="6.67 inch" [(ngModel)]="request.detail.cpu">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span>hỗ trợ bao nhiêu sim</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="IPS" [(ngModel)]="request.detail.sim">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span class="required">có jack 3.5 không</span>
+                                                    </label>
+                                                    <input type="checkbox" class="form-check-input"
+                                                        (change)="changeJack35()">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span>trọng lượng</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="IPS" [(ngModel)]="request.detail.weight">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-cols-1 row-cols-md-2">
+                                            <div class="col">
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span class="required">chất liệu mặt sau</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="6.67 inch"
+                                                        [(ngModel)]="request.detail.BackMaterial">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="fv-row mb-7">
+                                                    <label class="fs-6 fw-bold mb-2">
+                                                        <span>chất liệu khung</span>
+                                                    </label>
+                                                    <input type="text" class="form-control form-control-solid"
+                                                        placeholder="IPS" [(ngModel)]="request.detail.frameMaterial">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -408,7 +576,54 @@
 
             </div>
             <!--end::Tab content-->
-
+            <div class="modal fade show" tabindex="-1" aria-modal="true" role="dialog" style="display: block;"
+            *ngIf="isCreateSeries">
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <div class="modal-content">
+                    <div class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                        <div class="modal-header" id="kt_modal_add_customer_header">
+                            <h2 class="fw-bolder">thêm mới nhóm sản phẩm</h2>
+                            <div class="btn btn-icon btn-sm btn-active-icon-primary"
+                                (mousedown)="modelSeries()">
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                            transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                            transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="modal-body py-10 px-lg-17">
+                            <div class="scroll-y me-n7 pe-7" data-kt-scroll="true"
+                                data-kt-scroll-activate="{default: false, lg: true}"
+                                data-kt-scroll-max-height="auto"
+                                data-kt-scroll-dependencies="#kt_modal_add_customer_header"
+                                data-kt-scroll-wrappers="#kt_modal_add_customer_scroll"
+                                data-kt-scroll-offset="300px" style="max-height: 908px;">
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <label class="required fs-6 fw-bold mb-2">tên nhóm</label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="tên nhóm">
+                                </div>
+                            </div>
+                            <div class="modal-footer flex-center">
+                                <button type="reset" class="btn btn-light me-3" (mousedown)="modelSeries()">
+                                    đóng
+                                </button>
+                                <button type="submit" class="btn btn-primary" (mousedown)="createSeries()">
+                                    <span class="indicator-label">
+                                        Thêm mới
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
             <div class="d-flex justify-content-end">
                 <!--begin::Button-->
                 <a href="/jet-html-free/?page=apps/ecommerce/catalog/products" id="kt_ecommerce_add_product_cancel"

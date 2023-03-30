@@ -34,4 +34,8 @@ export class BrandService {
     return this.http.get(this.api+`/all?page=${filter.page}&size=${filter.size}&
     sort=${filter.sort}&search=${filter.search}&status=${filter.status}&fromDate=${filter.fromDate}&toDate=${filter.toDate}&order=${filter.order}`,this.httpOptions);
   }
+
+  getCategory() {
+    return this.http.get(this.api+'/category',this.httpOptions);
+  }
 }
