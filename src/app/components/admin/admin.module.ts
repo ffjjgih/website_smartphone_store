@@ -22,9 +22,10 @@ import { ViewSupplierComponent } from './supplier/view-supplier/view-supplier.co
 import { DetailSupplierComponent } from './supplier/detail-supplier/detail-supplier.component';
 import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.component';
 import { EditSupplierComponent } from './supplier/edit-supplier/edit-supplier.component';
-import { ProductComponent } from './product/product/product.component';
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { ViewProductComponent } from './product/view-product/view-product.component';
+import { ProductComponent } from './product/product.component';
+import { SellOfflineComponent } from './sell-offline/sell-offline.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -48,7 +49,8 @@ import { ViewProductComponent } from './product/view-product/view-product.compon
     EditSupplierComponent,
     ProductComponent,
     CreateProductComponent,
-    ViewProductComponent
+    ViewProductComponent,
+    SellOfflineComponent
   ],
   imports: [
     CommonModule,
