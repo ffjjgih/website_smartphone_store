@@ -63,19 +63,11 @@
                 </div>
                 <div class="card-body pt-0">
                     <label class="form-label">hãng sản xuất</label>
-                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn hãng sản xuất"
-                        (change)="selectBrand($event)">
+                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn hãng sản xuất" (change)="selectBrand($event)">
+                        <option [value]="null" selected>chọn nhà hãng sản xuất</option>
                         <option *ngFor="let item of catalog.brands" [value]="item.brandId">{{item.brandName}}</option>
                     </select>
                     <div class="text-muted fs-7 mb-7">chọn hãng sản xuất</div>
-                    <button class="btn btn-light-primary btn-sm mb-10">
-                        <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"
-                                    transform="rotate(-90 11 18)" fill="currentColor"></rect>
-                                <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
-                            </svg></span>thêm hãng sản xuất
-                    </button>
                     <div class="fv-row">
                         <div class="form-check form-check-custom form-check-solid mb-2">
                             <input class="form-check-input" type="checkbox" (change)="changeSupplier()" checked>
@@ -87,22 +79,12 @@
                 </div>
                 <div class="card-body pt-0" *ngIf="!isSupplier">
                     <label class="form-label">nhà cung cấp</label>
-                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn nhà cung cấp"
-                        (change)="selectSupplier($event)">
-                        <option *ngFor="let item of catalog.supplieres" [value]="item.supplierId">{{item.supplierName}}
+                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn nhà cung cấp" (change)="selectSupplier($event)">
+                        <option [value]="null" selected>chọn nhà cung cấp</option>
+                        <option *ngFor="let item of catalog.suppliers" [value]="item.supplierId">{{item.supplierName}}
                         </option>
                     </select>
                     <div class="text-muted fs-7 mb-7">chọn hãng sản xuất</div>
-                    <button class="btn btn-light-primary btn-sm mb-10">
-                        <span class="svg-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
-                                <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"
-                                    transform="rotate(-90 11 18)" fill="currentColor"></rect>
-                                <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
-                            </svg>
-                        </span>thêm nhà cung cấp
-                    </button>
                 </div>
             </div>
             <div class="card card-flush py-4">
@@ -111,20 +93,12 @@
                         <h2>loại sản phẩm</h2>
                     </div>
                 </div>
-                <div class="card-body pt-0">
-                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn loại sản phẩm"
-                        (change)="selectCategory($event)">
+                <div class="card-body pt-0" >
+                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn loại sản phẩm" (change)="selectCategory($event)">
                         <option *ngFor="let item of catalog.categories" [value]="item.categoryId">{{item.categoryName}}
                         </option>
                     </select>
                     <div class="text-muted fs-7 mb-7">chọn loại sản phẩm</div>
-                    <button class="btn btn-light-primary btn-sm mb-10">
-                        <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1" transform="rotate(-90 11 18)" fill="currentColor"></rect>
-                                <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
-                            </svg></span>thêm loại sản phẩm
-                    </button>
                 </div>
             </div>
             <div class="card card-flush py-4">
@@ -134,8 +108,8 @@
                     </div>
                 </div>
                 <div class="card-body pt-0">
-                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="Select an option"
-                        (change)="selectSeries($event)">
+                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="Select an option" (change)="selectSeries($event)">
+                        <option [value]="null" selected>chọn nhóm sản phẩm</option>
                         <option *ngFor="let item of catalog.series" [value]="item.seriesId">{{item.seriesName}}</option>
                     </select>
                     <div class="text-muted fs-7 mb-7">chọn nhóm sản phẩm</div>
@@ -192,22 +166,35 @@
                                     <h2>truyền thông</h2>
                                 </div>
                             </div>
-                            <div class="dropzone" ng2FileDrop (fileOver)="fileOver($event)" (onFileDrop)="onFileDrop($event)" (dragover)="dragOver($event)" (dragleave)="dragLeave($event)">
-                                <span *ngIf="fileIsOver" class="text-info">Drop file here</span>
-                              </div>
-                                                         
+                            <ngx-dropzone (change)="uploadFiles($event)" accept="image/*" class="dropzone dz-clickable">
+                                <ngx-dropzone-label>kéo thả ảnh sản phẩm vào đây</ngx-dropzone-label>
+                                <ngx-dropzone-preview *ngFor="let f of files;index as i" [removable]="true" (removed)="onRemove(f)">
+                                    <ngx-dropzone-label [style.background-image]="'url(' + filesPreview[i] + ')'"></ngx-dropzone-label>
+                                </ngx-dropzone-preview>
+                            </ngx-dropzone>
                             <div class="card-body pt-0">
-                                <div class="fv-row mb-2">
-                                    <div class="dropzone dz-clickable" id="kt_ecommerce_add_product_media">
-                                        <div class="dz-message needsclick">
-                                            <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                                            <div class="ms-4">
-                                                <h3 class="fs-5 fw-bolder text-gray-900 mb-1">kéo thả thư mục ở đây hoặc nhấn để tải lên</h3>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true">
+                                    <div *ngIf="media" class="image-input-wrapper w-150px h-150px" [style.background-image]="'url('+'/assets/img/word-logo.jpg'+')'"></div>
+                                    <div *ngIf="!media" class="image-input-wrapper w-150px h-150px"></div>
+                                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                        data-kt-image-input-action="change" data-bs-toggle="tooltip" title=""
+                                        data-bs-original-title="Change avatar">
+                                        <i class="bi bi-pencil-fill fs-7"></i>
+                                        <input type="file" name="avatar" accept=".docx, .pdf" (change)="uploadFileMidia($event)">
+                                        <input type="hidden" name="avatar_remove">
+                                    </label>
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                        data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title=""
+                                        data-bs-original-title="Cancel avatar">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
+                                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                        data-kt-image-input-action="remove" data-bs-toggle="tooltip" title=""
+                                        data-bs-original-title="Remove avatar">
+                                        <i class="bi bi-x fs-2"></i>
+                                    </span>
                                 </div>
-                                <div class="text-muted fs-7">bài viết giới thiệu sản phẩm word,pdf</div>
+                                <div class="text-muted fs-7">bài viết giới thiệu sản phẩm định dạng *.docx, *.pdf</div>
                             </div>
                         </div>
                         <div class="card card-flush py-4">
@@ -348,17 +335,17 @@
                                                 class="d-flex flex-column gap-3">
                                                 <div data-repeater-item="" class="form-group d-flex flex-wrap gap-5">
                                                     <input type="text" placeholder="màu"
-                                                        class="form-control w-100 w-md-125px" [(ngModel)]="v.color">
+                                                        class="form-control w-100 w-md-125px" [(ngModel)]="v.color" [ngModelOptions]="{standalone: true}">
                                                     <input type="text" class="form-control mw-100 w-90px"
-                                                        placeholder="ram" [(ngModel)]="v.ram">
+                                                        placeholder="ram" [(ngModel)]="v.ram" [ngModelOptions]="{standalone: true}">
                                                     <input type="text" class="form-control mw-100 w-90px"
-                                                        placeholder="rom" [(ngModel)]="v.rom">
+                                                        placeholder="rom" [(ngModel)]="v.rom" [ngModelOptions]="{standalone: true}">
                                                     <input type="number" class="form-control mw-100 w-80px"
-                                                        placeholder="số lượng" min="1" [(ngModel)]="v.quantity">
+                                                        placeholder="số lượng" min="1" [(ngModel)]="v.quantity" [ngModelOptions]="{standalone: true}">
                                                     <input type="number" class="form-control mw-100 w-150px"
-                                                        placeholder="giá nhập" [(ngModel)]="v.inPrice">
+                                                        placeholder="giá nhập" [(ngModel)]="v.inPrice" [ngModelOptions]="{standalone: true}">
                                                     <input type="number" class="form-control mw-100 w-150px"
-                                                        placeholder="giá bán" [(ngModel)]="v.outPrice">
+                                                        placeholder="giá bán" [(ngModel)]="v.outPrice" [ngModelOptions]="{standalone: true}">
                                                     <button type="button" class="btn btn-sm btn-icon btn-light-danger"
                                                         (mousedown)="deleteVersion(i)">
                                                         <span class="svg-icon svg-icon-2">
@@ -410,7 +397,7 @@
                                                         <span class="required">kích thước màn hình</span>
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
-                                                        placeholder="6.67 inch" [(ngModel)]="request.detail.screenSize">
+                                                        placeholder="6.67 inch" [(ngModel)]="detail.screenSize" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -418,7 +405,8 @@
                                                     <label class="fs-6 fw-bold mb-2">
                                                         <span>công nghệ màn hình</span>
                                                     </label>
-                                                    <input type="text" class="form-control form-control-solid" placeholder="IPS" [(ngModel)]="request.detail.screenResolution">
+                                                    <input type="text" class="form-control form-control-solid" placeholder="IPS"
+                                                     [(ngModel)]="detail.screenResolution" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                         </div>
@@ -428,7 +416,8 @@
                                                     <label class="fs-6 fw-bold mb-2">
                                                         <span class="required">độ phân giải</span>
                                                     </label>
-                                                    <input type="text" class="form-control form-control-solid" placeholder="6.67 inch" [(ngModel)]="request.detail.screenTechnology">
+                                                    <input type="text" class="form-control form-control-solid" placeholder="6.67 inch" 
+                                                    [(ngModel)]="detail.screenTechnology" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -436,7 +425,8 @@
                                                     <label class="fs-6 fw-bold mb-2">
                                                         <span>tần số quét</span>
                                                     </label>
-                                                    <input type="text" class="form-control form-control-solid" placeholder="IPS" [(ngModel)]="request.detail.sweepFrequency">
+                                                    <input type="text" class="form-control form-control-solid" placeholder="IPS" 
+                                                    [(ngModel)]="detail.sweepFrequency" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                         </div>
@@ -448,7 +438,7 @@
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
                                                         placeholder="6.67 inch"
-                                                        [(ngModel)]="request.detail.cameraFront">
+                                                        [(ngModel)]="detail.cameraFront" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -457,7 +447,7 @@
                                                         <span>camera sau</span>
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
-                                                        placeholder="IPS" [(ngModel)]="request.detail.cameraRear">
+                                                        placeholder="IPS" [(ngModel)]="detail.cameraRear" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                         </div>
@@ -469,7 +459,7 @@
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
                                                         placeholder="6.67 inch"
-                                                        [(ngModel)]="request.detail.pinCapacity">
+                                                        [(ngModel)]="detail.pinCapacity" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -478,7 +468,7 @@
                                                         <span>tốc độ sạc</span>
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
-                                                        placeholder="IPS" [(ngModel)]="request.detail.chargingSpeed">
+                                                        placeholder="IPS" [(ngModel)]="detail.chargingSpeed" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                         </div>
@@ -490,7 +480,7 @@
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
                                                         placeholder="6.67 inch"
-                                                        [(ngModel)]="request.detail.chargingType">
+                                                        [(ngModel)]="detail.chargingType" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -499,7 +489,7 @@
                                                         <span>hệ điều hành</span>
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
-                                                        placeholder="IPS" [(ngModel)]="request.detail.os">
+                                                        placeholder="IPS" [(ngModel)]="detail.os" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                         </div>
@@ -510,7 +500,7 @@
                                                         <span class="required">cpu</span>
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
-                                                        placeholder="6.67 inch" [(ngModel)]="request.detail.cpu">
+                                                        placeholder="6.67 inch" [(ngModel)]="detail.cpu" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -519,7 +509,7 @@
                                                         <span>hỗ trợ bao nhiêu sim</span>
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
-                                                        placeholder="IPS" [(ngModel)]="request.detail.sim">
+                                                        placeholder="IPS" [(ngModel)]="detail.sim" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                         </div>
@@ -531,7 +521,7 @@
                                                         <span class="required">có jack 3.5 không</span>
                                                     </label>
                                                     <input type="checkbox" class="form-check-input"
-                                                        (change)="changeJack35()">
+                                                        (change)="changeJack35()" >
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -540,7 +530,7 @@
                                                         <span>trọng lượng</span>
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
-                                                        placeholder="IPS" [(ngModel)]="request.detail.weight">
+                                                        placeholder="IPS" [(ngModel)]="request.detail.weight" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                         </div>
@@ -552,7 +542,7 @@
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
                                                         placeholder="6.67 inch"
-                                                        [(ngModel)]="request.detail.BackMaterial">
+                                                        [(ngModel)]="request.detail.BackMaterial" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                             <div class="col">
@@ -561,14 +551,13 @@
                                                         <span>chất liệu khung</span>
                                                     </label>
                                                     <input type="text" class="form-control form-control-solid"
-                                                        placeholder="IPS" [(ngModel)]="request.detail.frameMaterial">
+                                                        placeholder="IPS" [(ngModel)]="request.detail.frameMaterial" [ngModelOptions]="{standalone: true}">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -606,7 +595,19 @@
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2">tên nhóm</label>
                                     <input type="text" class="form-control form-control-solid"
-                                        placeholder="tên nhóm">
+                                        placeholder="tên nhóm" [(ngModel)]="seriesRequest.name" [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <label class="form-label">hãng sản xuất</label>
+                                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn hãng sản xuất" (change)="selectBrandSeries($event)">
+                                        <option *ngFor="let item of catalog.brands" [value]="item.brandId">{{item.brandName}}</option>
+                                    </select>
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container" >
+                                    <select class="form-select mb-2 select2-hidden-accessible" data-placeholder="chọn loại sản phẩm" (change)="selectCategorySeries($event)">
+                                        <option *ngFor="let item of catalog.categories" [value]="item.categoryId">{{item.categoryName}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="modal-footer flex-center">
@@ -626,14 +627,13 @@
         </div>
             <div class="d-flex justify-content-end">
                 <!--begin::Button-->
-                <a href="/jet-html-free/?page=apps/ecommerce/catalog/products" id="kt_ecommerce_add_product_cancel"
-                    class="btn btn-light me-5">
+                <button class="btn btn-light me-5" (mousedown)="goBack()">
                     Quay Lại
-                </a>
+                </button>
                 <!--end::Button-->
 
                 <!--begin::Button-->
-                <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" (mousedown)="createProduct()">
                     <span class="indicator-label">
                         thêm sản phẩm
                     </span>

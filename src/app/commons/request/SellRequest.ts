@@ -1,3 +1,5 @@
+import { SellResult } from "../result/SellResult";
+
 export class SellRequest{
     id!: number;
     name!: string;
@@ -8,4 +10,5 @@ export class SellRequest{
     category!: string;
     supplier!: string;
     imagesId!: number[];
+    sellProducts!: SellResult[];
 }

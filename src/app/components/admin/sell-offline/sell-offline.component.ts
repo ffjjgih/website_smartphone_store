@@ -4,6 +4,8 @@ import { SendRequest } from 'src/app/commons/request/SendRequest';
 import { ProductsResponse } from 'src/app/commons/response/ProductsResponse';
 import { SellResponse } from 'src/app/commons/response/SellResponse';
 import { Filter } from 'src/app/commons/result/Filter';
+import { ProductResult } from 'src/app/commons/result/ProductResult';
+import { SellResult } from 'src/app/commons/result/SellResult';
 import { BillService } from 'src/app/services/Bill/bill.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
@@ -17,11 +19,14 @@ export class SellOfflineComponent implements OnInit {
   response!: SellResponse;
   request!:SellRequest;
   products!:ProductsResponse;
+  results:SellResult[];
+  result!:SellResult;
   constructor(private productService: ProductService,
     private billService: BillService) {
     this.request=new SellRequest();
     this.response=new SellResponse();
     this.filter=new Filter();
+    this.results=[];
   }
 
   ngOnInit(): void {
@@ -29,15 +34,37 @@ export class SellOfflineComponent implements OnInit {
   }
 
   getProduct(filter: Filter) {
-    this.productService.getProducts(filter).subscribe(data => {
+    this.productService.getProductsToSell(filter).subscribe(data => {
       this.products = data as ProductsResponse;
     });
   }
 
   transaction() {
+    this.request.sellProducts=this.results;
     this.billService.transaction(this.request).subscribe(data => {
       this.response = data as SellResponse;
     });
+  }
+
+  addProduct(product: ProductResult) {
+    this.result=new SellResult();
+    this.result.productId=product.id;
+    this.result.productVersionId=product.productVersions[0].id;
+    this.result.quantity=1;
+    this.result.productVersions=product.productVersions;
+    this.result.name=product.name;
+    this.result.price=product.productVersions[0].price;
+    this.result.images=product.images;
+    this.result.brand=product.brand;
+    this.results.push(this.result);
+  }
+
+  changeQuantity(result:SellResult,quantity:number){
+    result.quantity=quantity;
+  }
+
+  removeProduct(result:SellResult){
+    this.results=this.results.filter(item=>item.productId!=result.productId);
   }
 
 }

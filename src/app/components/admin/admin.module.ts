@@ -26,6 +26,7 @@ import { CreateProductComponent } from './product/create-product/create-product.
 import { ViewProductComponent } from './product/view-product/view-product.component';
 import { ProductComponent } from './product/product.component';
 import { SellOfflineComponent } from './sell-offline/sell-offline.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -57,7 +58,8 @@ import { SellOfflineComponent } from './sell-offline/sell-offline.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    NgxDropzoneModule
   ],
   exports: [
     AdminComponent

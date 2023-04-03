@@ -1,28 +1,28 @@
 export class ProductConfigDetail {
     //màn hình
-    screenSize!: number;
-    screenResolution!: string;
-    screenTechnology!: string;
-    sweepFrequency!: string;
+    screenSize: number=0;
+    screenResolution: string="";
+    screenTechnology: string="";
+    sweepFrequency: string="";
     //camera
-    cameraFront!: string;
-    cameraRear!: string;
+    cameraFront: string="";
+    cameraRear: string="";
     //pin
-    pinCapacity!: number;
-    chargingSpeed!: string;
-    chargingType!: string;
+    pinCapacity: number=0;
+    chargingSpeed: string="";
+    chargingType: string="";
     //cpu
-    cpu!: string;
+    cpu: string="";
     //ram
-    ram!: string;
+    ram: string="";
     //rom
-    rom!: string;
+    rom: string="";
     //sim
-    sim!: string;
-    isJack!: boolean;
+    sim: string="";
+    isJack: boolean=false;
     //os
-    os!: string;
-    weight!: number;
-    frameMaterial!: string;
-    BackMaterial!: string;
+    os: string="";
+    weight: number=0;
+    frameMaterial: string="";
+    BackMaterial: string="";
 }
