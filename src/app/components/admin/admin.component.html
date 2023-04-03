@@ -15,6 +15,12 @@
     <ng-container *ngIf="selectedComponent==='supplier'">
       <app-supplier></app-supplier>
     </ng-container>
+    <ng-container *ngIf="selectedComponent==='product'">
+      <app-product></app-product>
+    </ng-container>
+    <ng-container *ngIf="selectedComponent==='sell-offline'">
+      <app-sell-offline></app-sell-offline>
+    </ng-container>
   </main>
   <footer>
     <app-footer-admin></app-footer-admin>

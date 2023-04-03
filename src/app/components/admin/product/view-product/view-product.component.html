@@ -1,1 +1,139 @@
-<p>view-product works!</p>
+<div class="wrapper">
+    <div class="content-page">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                        <div>
+                            <h4 class="mb-3">Danh sách sản phẩm</h4>
+                        </div>
+                        <button class="btn btn-primary add-list" (mousedown)="goToCreateProduct()"><i class="las la-plus mr-3"></i>Thêm sản phẩm</button>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 d-flex justify-content-between align-items-center">
+                            <div class="dataTables_length" id="DataTables_Table_0_length">
+                                <select class="custom-select custom-select-sm form-control form-control-sm">
+                                    <option value="10" style="margin-right: 10px;">10</option>
+                                    <option value="25" style="margin-right: 10px;">25</option>
+                                    <option value="50" style="margin-right: 10px;">50</option>
+                                    <option value="100" style="margin-right: 10px;">100</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="search" class="form-control form-control-sm" placeholder="tên sản phẩm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive rounded mb-3">
+                        <table class="data-tables table mb-0 tbl-server-info dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                            <thead class="bg-white text-uppercase">
+                                <tr class="ligth ligth-data" role="row">
+                                    <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0"
+                                        rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending"
+                                        style="width: 450.672px;" aria-sort="descending">Product</th>
+                                    <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0"
+                                        rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending"
+                                        style="width: 450.672px;" aria-sort="descending">Product</th>
+                                    <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0"
+                                        rowspan="1" colspan="1" aria-label="Product: activate to sort column ascending"
+                                        style="width: 450.672px;" aria-sort="descending">Product</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" aria-label="Code: activate to sort column ascending"
+                                        style="width: 175.828px;">Code</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" aria-label="Category: activate to sort column ascending"
+                                        style="width: 193.891px;">Category</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" aria-label="Price: activate to sort column ascending"
+                                        style="width: 161.297px;">Price</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" aria-label="Brand Name: activate to sort column ascending"
+                                        style="width: 248.312px;">Brand Name</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" aria-label="Cost: activate to sort column ascending"
+                                        style="width: 142.969px;">Cost</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" aria-label="Quantity: activate to sort column ascending"
+                                        style="width: 184.141px;">Quantity</th>
+                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1"
+                                        colspan="1" aria-label="Action: activate to sort column ascending"
+                                        style="width: 238.125px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="ligth-body">
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="../assets/images/table/product/01.jpg"
+                                                class="img-fluid rounded avatar-50 mr-3" alt="image">
+                                            <div>
+                                                Organic Cream
+                                                <p class="mb-0"><small>This is test Product</small></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>CREM01</td>
+                                    <td>Beauty</td>
+                                    <td>$25.00</td>
+                                    <td>Lakme</td>
+                                    <td>$10.00</td>
+                                    <td>$10.00</td>
+                                    <td>$10.00</td>
+                                    <td>10.0</td>
+                                    <td>
+                                        <div class="d-flex align-items-center list-action">
+                                            <button class="badge badge-info mr-2">
+                                                <i class="bi bi-eye mr-0"></i>
+                                            </button>
+                                            <button class="badge bg-success mr-2">
+                                                <i class="bi bi-pencil-fill mr-0"></i>
+                                            </button>
+                                            <button class="badge bg-warning mr-2">
+                                                <i class="bi bi-trash mr-0"></i>
+                                            </button>
+                                            <button class="badge bg-warning mr-2">
+                                                <i class="bi bi-trash mr-0"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                Showing 1 to 9 of 9 entries
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7 d-flex justify-content-end">
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button page-item previous disabled"
+                                        id="DataTables_Table_0_previous">
+                                        <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0"
+                                            class="page-link">Previous</a>
+                                    </li>
+                                    <li class="paginate_button page-item active">
+                                        <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0"
+                                            class="page-link">1</a>
+                                    </li>
+                                    <li class="paginate_button page-item next disabled" id="DataTables_Table_0_next">
+                                        <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0"
+                                            class="page-link">Next</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Page end  -->
+        </div>
+
+    </div>
+
+</div>

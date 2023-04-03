@@ -25,6 +25,7 @@ import { EditSupplierComponent } from './supplier/edit-supplier/edit-supplier.co
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { ViewProductComponent } from './product/view-product/view-product.component';
 import { ProductComponent } from './product/product.component';
+import { SellOfflineComponent } from './sell-offline/sell-offline.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -48,7 +49,8 @@ import { ProductComponent } from './product/product.component';
     EditSupplierComponent,
     ProductComponent,
     CreateProductComponent,
-    ViewProductComponent
+    ViewProductComponent,
+    SellOfflineComponent
   ],
   imports: [
     CommonModule,
