@@ -2,13 +2,14 @@ import { SellResult } from "../result/SellResult";
 
 export class SellRequest{
     id!: number;
-    name!: string;
-    price!: number;
+    transactionMethod!: string;
+    transferMethod!: string;
+    transfer247!: boolean;
+    money!: number;
+    transactionStatus!: string;
+    typeSell!: string;
+    img!: number;
+    companyId!: number;
     description!: string;
-    imageId!: number;
-    brand!: string;
-    category!: string;
-    supplier!: string;
-    imagesId!: number[];
     sellProducts!: SellResult[];
 }

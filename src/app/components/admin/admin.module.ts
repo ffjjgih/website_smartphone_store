@@ -27,6 +27,17 @@ import { ViewProductComponent } from './product/view-product/view-product.compon
 import { ProductComponent } from './product/product.component';
 import { SellOfflineComponent } from './sell-offline/sell-offline.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { TransportCompanyComponent } from './transport-company/transport-company.component';
+import { ViewTransportCompanyComponent } from './transport-company/view-transport-company/view-transport-company.component';
+import { CreateTransportCompanyComponent } from './transport-company/create-transport-company/create-transport-company.component';
+import { DetailTransportCompanyComponent } from './transport-company/detail-transport-company/detail-transport-company.component';
+import { EditTransportCompanyComponent } from './transport-company/edit-transport-company/edit-transport-company.component';
+import { OrderManagerComponent } from './order-manager/order-manager.component';
+import { OrderWaitingComponent } from './order-manager/order-waiting/order-waiting.component';
+import { OrderTransportComponent } from './order-manager/order-transport/order-transport.component';
+import { OrderCompleteComponent } from './order-manager/order-complete/order-complete.component';
+import { OrderDetailComponent } from './order-manager/order-detail/order-detail.component';
+import { OrderCancelComponent } from './order-manager/order-cancel/order-cancel.component';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -51,7 +62,18 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ProductComponent,
     CreateProductComponent,
     ViewProductComponent,
-    SellOfflineComponent
+    SellOfflineComponent,
+    TransportCompanyComponent,
+    ViewTransportCompanyComponent,
+    CreateTransportCompanyComponent,
+    DetailTransportCompanyComponent,
+    EditTransportCompanyComponent,
+    OrderManagerComponent,
+    OrderWaitingComponent,
+    OrderTransportComponent,
+    OrderCompleteComponent,
+    OrderDetailComponent,
+    OrderCancelComponent
   ],
   imports: [
     CommonModule,

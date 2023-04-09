@@ -1,0 +1,155 @@
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Container-->
+    <div class=" container-xxl " id="kt_content_container">
+        <!--begin::Products-->
+        <div class="card card-flush">
+            <!--begin::Card header-->
+            <div class="card-header align-items-center py-5 gap-2 gap-md-5" data-select2-id="select2-data-13-x9ea">
+                <!--begin::Card title-->
+                <div class="card-title">
+                    <!--begin::Search-->
+                    <div class="d-flex align-items-center position-relative my-1">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                        <span class="svg-icon svg-icon-1 position-absolute ms-4"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
+                                    transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+                                <path
+                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                    fill="currentColor"></path>
+                            </svg></span>
+                        <!--end::Svg Icon--> <input type="text" data-kt-ecommerce-order-filter="search"
+                            class="form-control form-control-solid w-250px ps-14" placeholder="Search Order">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div id="kt_ecommerce_sales_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="table-responsive">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
+                            id="kt_ecommerce_sales_table">
+                            <thead>
+                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                    <th class="min-w-100px sorting" tabindex="0"
+                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
+                                        aria-label="Order ID: activate to sort column ascending"
+                                        style="width: 143.281px;">mã đơn hàng</th>
+                                    <th class="min-w-175px sorting" tabindex="0"
+                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
+                                        aria-label="Customer: activate to sort column ascending"
+                                        style="width: 279.625px;">người mua</th>
+                                    <th class="text-end min-w-70px sorting" tabindex="0"
+                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
+                                        aria-label="Status: activate to sort column ascending"
+                                        style="width: 101.438px;">người giao hàng</th>
+                                    <th class="text-end min-w-100px sorting" tabindex="0"
+                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
+                                        aria-label="Total: activate to sort column ascending" style="width: 143.281px;">
+                                        tổng tiền</th>
+                                    <th class="text-end min-w-100px sorting" tabindex="0"
+                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
+                                        aria-label="Date Added: activate to sort column ascending"
+                                        style="width: 143.281px;">trạng thái</th>
+                                    <th class="text-end min-w-100px sorting" tabindex="0"
+                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
+                                        aria-label="Date Modified: activate to sort column ascending"
+                                        style="width: 143.281px;">ngày đặt</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1"
+                                        aria-label="Actions" style="width: 143.312px;">hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fw-bold text-gray-600">
+                                <tr class="odd">
+                                    <td data-kt-ecommerce-order-filter="order_id">
+                                        <a href="" (mousedown)="goToOrderDetail(1)">
+                                            14317 </a>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                                <a href="/jet-html-free/?page=apps/user-management/users/view">
+                                                    <div class="symbol-label">
+                                                        <img src="/jet-html-free/assets/media/avatars/300-6.jpg"
+                                                            alt="Emma Smith" class="w-100">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="ms-5">Emma mith</div>
+                                        </div>
+                                    </td>
+                                    <td class="text-end pe-0" data-order="Completed">
+                                        <div class="badge badge-light-success">Completed</div>
+                                    </td>
+                                    <td class="text-end pe-0">
+                                        <span class="fw-bolder">$446.00</span>
+                                    </td>
+                                    <td class="text-end" data-order="2023-04-04">
+                                        <span class="fw-bolder">04/04/2023</span>
+                                    </td>
+                                    <td class="text-end" data-order="2023-04-05">
+                                        <span class="fw-bolder">05/04/2023</span>
+                                    </td>
+                                    <td class="text-end pe-0">
+                                        <div class="d-flex align-items-center list-action">
+                                            <button class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top"
+                                                title="" data-original-title="Edit" (mousedown)="approveOrder('chấp nhận', 1)">
+                                                <i class="bi bi-pencil-fill mr-0"></i>
+                                            </button>
+                                            <button class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top"
+                                                title="" data-original-title="Delete" (mousedown)="approveOrder('từ chối',1)">
+                                                <i class="bi bi-trash mr-0"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div
+                            class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+                            <div class="dataTables_length" id="kt_ecommerce_sales_table_length"><label><select
+                                        name="kt_ecommerce_sales_table_length" aria-controls="kt_ecommerce_sales_table"
+                                        class="form-select form-select-sm form-select-solid">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                            </select></label></div>
+                        </div>
+                        <div
+                            class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+                            <div class="dataTables_paginate paging_simple_numbers"
+                                id="kt_ecommerce_sales_table_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button page-item previous disabled"
+                                        id="kt_ecommerce_sales_table_previous"><a href="#"
+                                            aria-controls="kt_ecommerce_sales_table" data-dt-idx="0" tabindex="0"
+                                            class="page-link"><i class="previous"></i></a></li>
+                                    <li class="paginate_button page-item active"><a href="#"
+                                            aria-controls="kt_ecommerce_sales_table" data-dt-idx="1" tabindex="0"
+                                            class="page-link">1</a></li>
+                                    <li class="paginate_button page-item "><a href="#"
+                                            aria-controls="kt_ecommerce_sales_table" data-dt-idx="2" tabindex="0"
+                                            class="page-link">2</a></li>
+                                    <li class="paginate_button page-item "><a href="#"
+                                            aria-controls="kt_ecommerce_sales_table" data-dt-idx="3" tabindex="0"
+                                            class="page-link">3</a></li>
+                                    <li class="paginate_button page-item "><a href="#"
+                                            aria-controls="kt_ecommerce_sales_table" data-dt-idx="4" tabindex="0"
+                                            class="page-link">4</a></li>
+                                    <li class="paginate_button page-item "><a href="#"
+                                            aria-controls="kt_ecommerce_sales_table" data-dt-idx="5" tabindex="0"
+                                            class="page-link">5</a></li>
+                                    <li class="paginate_button page-item next" id="kt_ecommerce_sales_table_next"><a
+                                            href="#" aria-controls="kt_ecommerce_sales_table" data-dt-idx="6"
+                                            tabindex="0" class="page-link"><i class="next"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="page==='waiting'">
+    <app-order-waiting></app-order-waiting>
+</ng-container>
+<ng-container *ngIf="page==='transport'">
+    <app-order-transport (sendData)="selectComponent($event)"></app-order-transport>
+</ng-container>
+<ng-container *ngIf="page==='complete'">
+    <app-order-complete></app-order-complete>
+</ng-container>
+<ng-container *ngIf="page==='cancel'">
+    <app-order-cancel></app-order-cancel>
+</ng-container>
+<ng-container *ngIf="page==='detail'">
+    <app-order-detail></app-order-detail>
+</ng-container>
