@@ -55,4 +55,17 @@ export class HeaderAdminComponent implements OnInit {
     this.sendRequest.method = 'GET';
     this.sendData.emit(this.sendRequest);
   }
+
+  goToTransportCompany() {
+    this.sendRequest.api = 'transport-company';
+    this.sendRequest.method = 'GET';
+    this.sendData.emit(this.sendRequest);
+  }
+
+  goToOrder(page:string){
+    this.sendRequest.api = 'order';
+    this.sendRequest.method = 'GET';
+    this.sendRequest.data=page;
+    this.sendData.emit(this.sendRequest);
+  }
 }

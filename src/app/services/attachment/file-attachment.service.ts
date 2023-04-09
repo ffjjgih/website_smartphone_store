@@ -26,11 +26,21 @@ export class FileAttachmentService {
     return this.http.post(this.api+'/upload', formData,this.httpOptions);
   }
 
+  uplodadFileDoc(file: File) {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(this.api+'/upload-document', formData,this.httpOptions);
+  }
+
   getFile(fileId: number) {
     return this.http.get(this.api+'/get-file-by-id/'+fileId);
   }
 
   downloadFile(fileId: number) {
     return this.http.get(this.api+'/download-file/'+fileId,{ responseType: 'blob' });
+  }
+
+  deleteFile(fileId: number) {
+    return this.http.delete(this.api+'/delete-file/'+fileId);
   }
 }

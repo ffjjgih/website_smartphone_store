@@ -13,6 +13,7 @@ export class ViewSupplierComponent implements OnInit{
   @Output() sendData = new EventEmitter<SendRequest<SupplierResult>>();
   sendRequest!: SendRequest<SupplierResult>;
   suppliersResponse!:SuppliersResponse;
+  response!:SuppliersResponse;
   filter !:Filter;
   constructor(private supplierService: SupplierService) {
     this.filter = new Filter();
@@ -59,9 +60,9 @@ export class ViewSupplierComponent implements OnInit{
     const conf=confirm('Bạn có chắc chắn muốn xóa nhà cung cấp này không?');
     if(conf){
       this.supplierService.deleteSupplier(supplier.id).subscribe(res => {
-        this.suppliersResponse = res as SuppliersResponse;
-        if (this.suppliersResponse.status == 200) {
-          alert(this.suppliersResponse.message);
+        this.response = res as SuppliersResponse;
+        if (this.response.status == 200) {
+          alert(this.response.message);
           this.deleteSupplierInList(supplier);
         }
       });
