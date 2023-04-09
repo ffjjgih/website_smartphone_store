@@ -1,0 +1,12 @@
+<ng-container *ngIf="typeView==='home'">
+    <app-view-transport-company (sendData)="selectComponent($event)"></app-view-transport-company>
+</ng-container>
+<ng-container *ngIf="typeView==='add'">
+    <app-create-transport-company (sendData)="selectComponent($event)"></app-create-transport-company>
+</ng-container>
+<ng-container *ngIf="typeView==='edit'">
+    <app-edit-transport-company [data]="this.sendRequest.data" (sendData)="selectComponent($event)"></app-edit-transport-company>
+</ng-container>
+<ng-container *ngIf="typeView==='detail'">
+    <app-detail-transport-company [data]="this.sendRequest.data" (sendData)="selectComponent($event)"></app-detail-transport-company>
+</ng-container>

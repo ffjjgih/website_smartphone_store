@@ -1,0 +1,145 @@
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Container-->
+    <div class=" container-xxl " id="kt_content_container">
+        <form id="kt_ecommerce_add_supplier_form"
+            class="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework"
+            data-kt-redirect="/jet-html-free/?page=apps/ecommerce/catalog/categories">
+            <!--begin::Aside column-->
+            <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+                <!--begin::ảnh-->
+                <div class="card card-flush py-4">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2>logo</h2>
+                        </div>
+                    </div>
+                    <div class="card-body text-center pt-0">
+                        <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true">
+                            <div *ngIf="data.attachment!=null && data.attachment.data!=null" class="image-input-wrapper w-150px h-150px" [style.background-image]="'url(data:' + data.attachment.type + ';base64,' + data.attachment.data + ')'"></div>
+                            <div *ngIf="data.attachment==null || data.attachment.data==null" class="image-input-wrapper w-150px h-150px"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Thumbnail settings-->
+                <!--begin::status-->
+                <div class="card card-flush py-4">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2>trạng thái</h2>
+                        </div>
+                        <div class="card-toolbar" *ngIf="data.status==='hoạt động'">
+                            <div class="rounded-circle bg-success w-15px h-15px"></div>
+                        </div>
+                        <div class="card-toolbar" *ngIf="data.status!=='hoạt động'">
+                            <div class="rounded-circle bg-danger w-15px h-15px"></div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <select class="form-select mb-2 select2-hidden-accessible" data-control="select2" tabindex="-1" aria-hidden="true">
+                            <option selected="" data-select2-id="select2-data-8-yyv1">{{data.status}} </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+                <div class="card card-flush py-4">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h2>thông tin chung</h2>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="input-container">
+                            <div class="form-group mb-3">
+                                <label class="required form-label">tên thương hiệu</label>
+                                <input type="text" class="form-control mb-2" disabled [value]="data.name">
+                            </div>
+                        </div>
+                        <div class="input-container">
+                            <div class="form-group mb-3">
+                                <label class="required form-label">email</label>
+                                <input type="text" class="form-control mb-2" disabled [value]="data.email">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label">địa chỉ</label>
+                            <input class="form-control mb-2" disabled [value]="data.address">
+                        </div>
+                        <div>
+                            <label class="form-label">mô tả</label>
+                            <textarea class="form-control mb-2" rows="4" disabled [value]="data.description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container-xxl form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework">
+        <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+            <div class="card-body pt-0">
+                <div class="d-flex flex-column gap-5 gap-md-7">
+                    <div class="fs-3 fw-bolder mb-n2">thông tin nhân viên</div>
+                    <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer">
+                        <thead>
+                            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                <th class="min-w-250px sorting" tabindex="0" aria-controls="kt_ecommerce_category_table"
+                                    rowspan="1" colspan="1" aria-label="Category: activate to sort column ascending"
+                                    style="width: 776.562px;">mã nhân viên</th>
+                                <th class="min-w-250px sorting" tabindex="0" aria-controls="kt_ecommerce_category_table"
+                                    rowspan="1" colspan="1" aria-label="Category: activate to sort column ascending"
+                                    style="width: 776.562px;">họ và tên</th>
+                                <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_ecommerce_category_table"
+                                    rowspan="1" colspan="1"
+                                    aria-label="Category Type: activate to sort column ascending"
+                                    style="width: 220.688px;">số điện thoại</th>
+                                <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_ecommerce_category_table"
+                                    rowspan="1" colspan="1"
+                                    aria-label="Category Type: activate to sort column ascending"
+                                    style="width: 220.688px;">email</th>
+                                <th class="min-w-150px sorting" tabindex="0" aria-controls="kt_ecommerce_category_table"
+                                    rowspan="1" colspan="1"
+                                    aria-label="Category Type: activate to sort column ascending"
+                                    style="width: 220.688px;">đơn hàng</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-bold text-gray-600" *ngIf="response!=null && response.shippers!=null">
+                            <tr *ngFor="let result of response.shippers">
+                                <td class="align-items-center">
+                                    <div class="badge badge-light-success">{{result.shipCode}}</div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center" *ngIf="result.attachment!=null">
+                                        <img [src]="'data:' + result.attachment.type + ';base64,' + result.attachment.data" class="img-fluid rounded avatar-50 mr-3" alt="image">
+                                        <div>
+                                            {{result.fullname}}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center" *ngIf="result.attachment==null">
+                                        <div class="img-fluid rounded avatar-50 mr-3"></div>
+                                        <div>
+                                            {{result.fullname}}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-items-center">
+                                    <div class="badge badge-light-success">{{result.phone}}</div>
+                                </td>
+                                <td class="align-items-center">
+                                    <div class="badge badge-light-success">{{result.email}}</div>
+                                </td>
+                                <td class="align-items-center">
+                                    <div class="badge badge-light-success">{{result.countOrder}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button (mousedown)="cancel()" class="btn btn-light me-5">
+                Quay lại
+              </button>
+            </div>
+          </div>
+          </div>
+</div>

@@ -19,24 +19,23 @@
                             </div>
                             <div class="fv-row fv-plugins-icon-container" data-select2-id="select2-data-24-jey6">
                                 <label class="required form-label">phương thức thanh toán</label>
-                                <select class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true"name="payment_method" data-select2-id="select2-data-kt_ecommerce_edit_order_payment" tabindex="-1" aria-hidden="true">
-                                    <option data-select2-id="select2-data-8-zkwg">tiền mặt</option>
-                                    <option value="cod" data-select2-id="select2-data-25-rveg">chuyển khoản</option>
+                                <select class="form-select mb-2 select2-hidden-accessible" (change)="selectTransferMethod($event)">
+                                    <option data-select2-id="select2-data-8-zkwg" [value]="'money'">tiền mặt</option>
+                                    <option value="cod" data-select2-id="select2-data-25-rveg" [value]="'payment'">chuyển khoản</option>
                                 </select>
                             </div>
                             <div class="fv-row fv-plugins-icon-container" data-select2-id="select2-data-16-25jm">
                                 <label class="required form-label">phương thức vận chuyển</label>
-                                <select class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" name="shipping_method" data-select2-id="select2-data-kt_ecommerce_edit_order_shipping" tabindex="-1" aria-hidden="true">
-                                    <option data-select2-id="select2-data-10-1q4j">nhận sản phẩm tại cửa hàng</option>
-                                    <option value="none" data-select2-id="select2-data-19-uzgj">giao hàng tận nơi
-                                    </option>
+                                <select class="form-select mb-2 select2-hidden-accessible" (change)="selectTransactionMethod($event)">
+                                    <option data-select2-id="select2-data-10-1q4j" [value]="'offline'">nhận sản phẩm tại cửa hàng</option>
+                                    <option value="none" data-select2-id="select2-data-19-uzgj" [value]="'online'">giao hàng tận nơi</option>
                                 </select>
                             </div>
-                            <div class="fv-row fv-plugins-icon-container" data-select2-id="select2-data-16-25jm">
+                            <div class="fv-row fv-plugins-icon-container" data-select2-id="select2-data-16-25jm" *ngIf="request.transactionMethod == 'online'">
                                 <label class="required form-label">công ty vận chuyển</label>
-                                <select class="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" name="shipping_method" data-select2-id="select2-data-kt_ecommerce_edit_order_shipping" tabindex="-1" aria-hidden="true">
-                                    <option data-select2-id="select2-data-10-1q4j">giao hàng tiết kiệm</option>
-                                    <option value="none" data-select2-id="select2-data-19-uzgj">viettel post</option>
+                                <select class="form-select mb-2 select2-hidden-accessible" (change)="selectCompany($event)">
+                                    <option data-select2-id="select2-data-10-1q4j" [value]="1">giao hàng tiết kiệm</option>
+                                    <option value="none" data-select2-id="select2-data-19-uzgj" [value]="2">viettel post</option>
                                 </select>
                             </div>
                         </div>
@@ -118,6 +117,7 @@
                                                             style="width: 24.9844px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
                                                             <div class="dataTables_sizing"
                                                                 style="height: 0px; overflow: hidden;"></div>
+                                                                
                                                         </th>
                                                         <th class="min-w-200px sorting"
                                                             aria-controls="kt_ecommerce_edit_order_product_table"
@@ -139,11 +139,14 @@
                                                 <tbody class="fw-bold text-gray-600">
                                                     <tr class="odd">
                                                         <td>
-                                                            <div
-                                                                class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="1">
-                                                            </div>
+                                                            <button class="btn btn-light-primary">
+                                                                <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                                        viewBox="0 0 24 24" fill="none">
+                                                                        <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"
+                                                                            transform="rotate(-90 11 18)" fill="currentColor"></rect>
+                                                                        <rect x="6" y="11" width="12" height="2" rx="1" fill="currentColor"></rect>
+                                                                    </svg></span>
+                                                            </button>
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-center"
@@ -187,7 +190,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card card-flush py-4">
+                <div class="card card-flush py-4" *ngIf="request.transactionMethod=='online'">
                     <div class="card-header">
                         <div class="card-title">
                             <h2>địa nhận hàng</h2>
@@ -223,7 +226,7 @@
                         class="btn btn-light me-5">
                         xóa hết
                     </a>
-                    <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-primary">
+                    <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-primary" (mousedown)="transaction()">
                         <span class="indicator-label">
                             thanh toán
                         </span>
@@ -233,4 +236,91 @@
             <div></div>
         </form>
     </div>
+    <div class="modal fade show" tabindex="-1" aria-modal="true" role="dialog" style="display: block;" *ngIf="open">
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <div class="modal-content">
+                    <div class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                        <div class="modal-header" id="kt_modal_add_customer_header">
+                            <h2 class="fw-bolder">thanh toán</h2>
+                            <div class="btn btn-icon btn-sm btn-active-icon-primary"
+                                (mousedown)="model()">
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                            transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                            transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="modal-body py-10 px-lg-17">
+                            <div class="scroll-y me-n7 pe-7" data-kt-scroll="true"
+                                data-kt-scroll-activate="{default: false, lg: true}"
+                                data-kt-scroll-max-height="auto"
+                                data-kt-scroll-dependencies="#kt_modal_add_customer_header"
+                                data-kt-scroll-wrappers="#kt_modal_add_customer_scroll"
+                                data-kt-scroll-offset="300px" style="max-height: 908px;">
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <div class="card-body text-center pt-0">
+                                        <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true">
+                                            <div class="image-input-wrapper w-150px h-150px" [style.background-image]="'(/assets/img/word-logo.jpg)'"></div>
+                                        </div>
+                                        <div class="text-muted fs-7">số tài khoản</div>
+                                    </div>
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <div class="form-check form-check-custom form-check-solid mb-2">
+                                        <input class="form-check-input" type="checkbox" (change)="changeTypeTransfer()" checked>
+                                        <label class="form-check-label">
+                                            chuyển khoản 24/7
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container" *ngIf="!request.transfer247">
+                                    <label class="form-label">ảnh xác minh</label>
+                                        <div class="card-body text-center pt-0">
+                                            <div class="image-input image-input-empty image-input-outline mb-3" data-kt-image-input="true">
+                                                <div *ngIf="images" class="image-input-wrapper w-150px h-150px" [style.background-image]="'url(' + images + ')'"></div>
+                                                <div *ngIf="!images" class="image-input-wrapper w-150px h-150px"></div>
+                                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                    data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
+                                                    <i class="bi bi-pencil-fill fs-7"></i>
+                                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" (change)="uploadFile($event)">
+                                                    <input type="hidden" name="avatar_remove">
+                                                </label>
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                    data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" data-bs-original-title="Cancel avatar">
+                                                    <i class="bi bi-x fs-2"></i>
+                                                </span>
+                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                    data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="" data-bs-original-title="Remove avatar">
+                                                    <i class="bi bi-x fs-2"></i>
+                                                </span>
+                                            </div>
+                                            <div class="text-muted fs-7">định dạng *.png, *.jpg and *.jpeg</div>
+                                        </div>
+                                </div>
+                                <div class="fv-row mb-7 fv-plugins-icon-container" *ngIf="!request.transfer247">
+                                    <label class="form-label">lý do</label>
+                                    <textarea class="form-control mb-2" name="product_description" rows="4"
+                                        [(ngModel)]="request.description" [ngModelOptions]="{standalone: true}"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer flex-center">
+                                <button type="reset" class="btn btn-light me-3" (mousedown)="model()">
+                                    đóng
+                                </button>
+                                <button type="submit" class="btn btn-primary" (mousedown)="confirm()">
+                                    <span class="indicator-label">
+                                        hoàn thành
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>

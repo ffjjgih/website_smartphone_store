@@ -26,4 +26,9 @@ export class ProductService {
     return this.http.get(this.api+`/all?page=${filter.page}&size=${filter.size}&
     sort=${filter.sort}&search=${filter.search}&status=${filter.status}&fromDate=${filter.fromDate}&toDate=${filter.toDate}&order=${filter.order}`,this.httpOptions);
   }
+
+  getProductsToSell(filter:Filter) {
+    return this.http.get(this.api+`/get-sell?page=${filter.page}&size=${filter.size}&
+    sort=${filter.sort}&search=${filter.search}&status=${filter.status}&fromDate=${filter.fromDate}&toDate=${filter.toDate}&order=${filter.order}`,this.httpOptions);
+  }
 }

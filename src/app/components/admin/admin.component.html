@@ -21,6 +21,12 @@
     <ng-container *ngIf="selectedComponent==='sell-offline'">
       <app-sell-offline></app-sell-offline>
     </ng-container>
+    <ng-container *ngIf="selectedComponent==='transport-company'">
+      <app-transport-company></app-transport-company>
+    </ng-container>
+    <ng-container *ngIf="selectedComponent==='order'">
+      <app-order-manager [page]="sendData.data"></app-order-manager>
+    </ng-container>
   </main>
   <footer>
     <app-footer-admin></app-footer-admin>
