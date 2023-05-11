@@ -1,4 +1,6 @@
+import { AttachmentFileResponse } from "../response/AttachmentFileResponse";
 import { ProductVersionResult } from "./ProductVersionResult";
+import { ProductVersionSellOfflineResult } from "./ProductVersionSellOfflineResult";
 
 export class SellResult{
     productId!: number;
@@ -6,7 +8,10 @@ export class SellResult{
     quantity!: number;
     name!: string;
     price!: number;
-    images!: string;
+    images!: number;
     brand!: string;
-    productVersions!: ProductVersionResult[];
+    image!:AttachmentFileResponse;
+    warehouseId!: number;
+    maxQuantity!: number;
+    productVersions!: ProductVersionSellOfflineResult[];
 }

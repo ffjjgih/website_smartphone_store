@@ -48,10 +48,6 @@
                                         tổng tiền</th>
                                     <th class="text-end min-w-100px sorting" tabindex="0"
                                         aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
-                                        aria-label="Date Added: activate to sort column ascending"
-                                        style="width: 143.281px;">trạng thái</th>
-                                    <th class="text-end min-w-100px sorting" tabindex="0"
-                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
                                         aria-label="Date Modified: activate to sort column ascending"
                                         style="width: 143.281px;">ngày đặt</th>
                                     <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1"
@@ -59,37 +55,25 @@
                                 </tr>
                             </thead>
                             <tbody class="fw-bold text-gray-600">
-                                <tr class="odd">
+                                <tr class="odd" *ngFor="let result of response.data">
                                     <td data-kt-ecommerce-order-filter="order_id">
-                                        <a href="" (mousedown)="goToOrderDetail(1)">
-                                            14317 </a>
+                                        <a href="#detail" (mousedown)="goToOrderDetail(result.billId)"
+                                            class="text-gray-800 text-hover-primary fw-bolder">
+                                            {{result.billId}} </a>
                                     </td>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                <a href="/jet-html-free/?page=apps/user-management/users/view">
-                                                    <div class="symbol-label">
-                                                        <img src="/jet-html-free/assets/media/avatars/300-6.jpg"
-                                                            alt="Emma Smith" class="w-100">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="ms-5">Emma mith</div>
-                                        </div>
-                                    </td>
-                                    <td class="text-end pe-0" data-order="Completed">
-                                        <div class="badge badge-light-success">Completed</div>
+                                        {{result.fullName}}
                                     </td>
                                     <td class="text-end pe-0">
-                                        <span class="fw-bolder">$446.00</span>
+                                        <span class="fw-bolder">{{result.shipperName}}</span>
                                     </td>
-                                    <td class="text-end" data-order="2023-04-04">
-                                        <span class="fw-bolder">04/04/2023</span>
+                                    <td class="text-end">
+                                        <span class="fw-bolder">{{result.price}}</span>
                                     </td>
-                                    <td class="text-end" data-order="2023-04-05">
-                                        <span class="fw-bolder">05/04/2023</span>
+                                    <td class="text-end">
+                                        <span class="fw-bolder">{{result.createdDate}}</span>
                                     </td>
-                                    <td class="text-end pe-0">
+                                    <td>
                                         <div class="d-flex align-items-center list-action">
                                             <button class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top"
                                                 title="" data-original-title="Edit" (mousedown)="approveOrder('chấp nhận', 1)">

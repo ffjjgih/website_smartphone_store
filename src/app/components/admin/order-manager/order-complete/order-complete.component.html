@@ -40,6 +40,14 @@
                                         aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
                                         aria-label="Customer: activate to sort column ascending"
                                         style="width: 279.625px;">người giao</th>
+                                        <th class="min-w-175px sorting" tabindex="0"
+                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
+                                        aria-label="Customer: activate to sort column ascending"
+                                        style="width: 279.625px;">phương thức nhận hàng</th>
+                                        <th class="min-w-175px sorting" tabindex="0"
+                                        aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
+                                        aria-label="Customer: activate to sort column ascending"
+                                        style="width: 279.625px;">phương thức thanh toán</th>
                                     <th class="text-end min-w-100px sorting" tabindex="0"
                                         aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
                                         aria-label="Date Added: activate to sort column ascending"
@@ -47,35 +55,33 @@
                                     <th class="text-end min-w-100px sorting" tabindex="0"
                                         aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
                                         aria-label="Date Modified: activate to sort column ascending"
-                                        style="width: 143.281px;">ngày giao hàng</th>
+                                        style="width: 143.281px;">ngày hoàn thành</th>
                                 </tr>
                             </thead>
                             <tbody class="fw-bold text-gray-600">
-                                <tr class="odd">
+                                <tr class="odd" *ngFor="let result of response.data">
                                     <td data-kt-ecommerce-order-filter="order_id">
-                                        <a href="/jet-html-free/?page=apps/ecommerce/sales/details"
+                                        <a href="#detail" (mousedown)="goToOrderDetail(result.billId)"
                                             class="text-gray-800 text-hover-primary fw-bolder">
-                                            14317 </a>
+                                            {{result.billId}} </a>
                                     </td>
                                     <td class="">
-                                        Emma Smith
+                                        {{result.fullName}}
                                     </td>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                    <div class="symbol-label">
-                                                        <img src="/jet-html-free/assets/media/avatars/300-6.jpg"
-                                                            alt="Emma Smith" class="w-100">
-                                                    </div>
-                                            </div>
-                                            <div class="ms-5">Smith</div>
-                                        </div>
+                                        {{result.shipperName}}
                                     </td>
-                                    <td class="text-end pe-0">
-                                        <span class="fw-bolder">$446.00</span>
+                                    <td>
+                                        <span class="fw-bolder">{{result.receivingMethod}}</span>
                                     </td>
-                                    <td class="text-end" data-order="2023-04-05">
-                                        <span class="fw-bolder">05/04/2023</span>
+                                    <td>
+                                        <span class="fw-bolder">{{result.transferMethod}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bolder">{{ result.price | currency:'VND' }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bolder">{{result.completedDate}}</span>
                                     </td>
                                 </tr>
                             </tbody>

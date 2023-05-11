@@ -13,10 +13,6 @@
                     </div>
                     <div class="card-body pt-0">
                         <div class="d-flex flex-column gap-10" data-select2-id="select2-data-17-iiui">
-                            <div class="fv-row">
-                                <label class="form-label">mã đơn hàng</label>
-                                <div class="fw-bolder fs-3">#14040</div>
-                            </div>
                             <div class="fv-row fv-plugins-icon-container" data-select2-id="select2-data-24-jey6">
                                 <label class="required form-label">phương thức thanh toán</label>
                                 <select class="form-select mb-2 select2-hidden-accessible" (change)="selectTransferMethod($event)">
@@ -55,12 +51,39 @@
                                 <label class="form-label">thêm sản phẩm vào đơn hàng</label>
                                 <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 border border-dashed rounded pt-3 pb-1 px-2 mb-5 mh-300px overflow-scroll"
                                     id="kt_ecommerce_edit_order_selected_products">
-                                    <span class="w-100 text-muted ">Chọn một hoặc nhiều sản phẩm từ danh sách bên dưới bằng cách đánh dấu vào hộp kiểm.</span>
+                                    <span class="w-100 text-muted " *ngIf="results==null || results.length==0">Chọn một hoặc nhiều sản phẩm từ danh sách bên dưới bằng cách đánh dấu vào hộp kiểm.</span>
+                                    <div class="w-50" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_1" *ngFor="let res of results;index as i">
+                                        <div class=" d-flex align-items-center border border-dashed rounded p-3 bg-white">
+                                        <a class="symbol symbol-50px">
+                                            <span class="symbol-label" [style.background-image]="'url(data:' + res.image.type + ';base64,' + res.image.data + ')'"></span>
+                                        </a>
+                                        <div class="ms-5" >
+                                            <div class="text-gray-800 fs-5 fw-bolder">{{res.name}}</div>
+                                            <select class="form-select mb-2 select2-hidden-accessible" [(ngModel)]="res.productVersionId" [ngModelOptions]="{standalone: true}">
+                                                <option *ngFor="let item of res.productVersions" [value]="item.productVersionId">{{item.color}} - {{item.ram}} - {{item.rom}}</option>
+                                            </select>
+                                            <div class="text-muted fs-7">
+                                                số lượng: <input type="number" class="form-control" min="1" [(ngModel)]="res.quantity" [ngModelOptions]="{standalone: true}" [max]="res.maxQuantity" (change)="checkQuantity(i)"></div>
+                                            <div class="fw-bold fs-7">giá: <span data-kt-ecommerce-edit-order-filter="price">{{res.price*res.quantity}}</span> VND</div>
+                                        </div>
+                                        <div class="btn btn-icon btn-sm btn-active-icon-primary">
+                                            <span class="svg-icon svg-icon-1" (mousedown)="removeProduct(i)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none">
+                                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                                        transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                                        transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="fw-bolder fs-4">
-                                    tổng tiền: VND
+                                    tổng tiền: 
                                     <span id="kt_ecommerce_edit_order_total_price">
-                                        0.000
+                                        {{sumPrice}} VND
                                     </span>
                                 </div>
                             </div>
@@ -76,7 +99,7 @@
                                             fill="currentColor"></path>
                                     </svg></span>
                                 <input type="text" data-kt-ecommerce-edit-order-filter="search"
-                                    class="form-control form-control-solid w-100 w-lg-50 ps-14"  placeholder="Tìm kiếm theo tên">
+                                    class="form-control form-control-solid w-100 w-lg-50 ps-14"  placeholder="Tìm kiếm theo tên" [(ngModel)]="filter.search" (change)="getProduct(filter)" [ngModelOptions]="{standalone: true}">
                             </div>
                             <div id="kt_ecommerce_edit_order_product_table_wrapper"
                                 class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -136,10 +159,10 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="fw-bold text-gray-600">
-                                                    <tr class="odd">
+                                                <tbody class="fw-bold text-gray-600" *ngIf="products!=null && products.status==200 && products.data!=null">
+                                                    <tr class="odd" *ngFor="let res of products.data">
                                                         <td>
-                                                            <button class="btn btn-light-primary">
+                                                            <button class="btn btn-light-primary" (mousedown)="addProduct(res)">
                                                                 <span class="svg-icon svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                                         viewBox="0 0 24 24" fill="none">
                                                                         <rect opacity="0.5" x="11" y="18" width="12" height="2" rx="1"
@@ -152,25 +175,23 @@
                                                             <div class="d-flex align-items-center"
                                                                 data-kt-ecommerce-edit-order-filter="product"
                                                                 data-kt-ecommerce-edit-order-id="product_1">
-                                                                <a href="/jet-html-free/?page=apps/ecommerce/catalog/edit-product"
-                                                                    class="symbol symbol-50px">
-                                                                    <span class="symbol-label"
-                                                                        style="background-image:url(/jet-html-free/assets/media//stock/ecommerce/1.gif);"></span>
+                                                                <a class="symbol symbol-50px">
+                                                                    <span class="symbol-label" [style.background-image]="'url(data:' + res.image.type + ';base64,' + res.image.data + ')'">
+                                                                    </span>
                                                                 </a>
 
                                                                 <div class="ms-5">
                                                                     <a href="/jet-html-free/?page=apps/ecommerce/catalog/edit-product"
-                                                                        class="text-gray-800 text-hover-primary fs-5 fw-bolder">Product
-                                                                        1</a>
-                                                                    <div class="fw-bold fs-7">Price: $<span
-                                                                            data-kt-ecommerce-edit-order-filter="price">199.00</span>
+                                                                        class="text-gray-800 text-hover-primary fs-5 fw-bolder">{{res.productName}}</a>
+                                                                    <div class="fw-bold fs-7">Price:<span
+                                                                            data-kt-ecommerce-edit-order-filter="price">{{res.versionResults[0].price}} VND</span>
                                                                     </div>
-                                                                    <div class="text-muted fs-7">SKU: 02918008</div>
+                                                                    <div class="text-muted fs-7">Hãng: {{res.brandName}}</div>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td class="text-end pe-5" data-order="26">
-                                                            <span class="fw-bolder ms-3">26</span>
+                                                            <span class="fw-bolder ms-3">{{res.versionResults[0].quantity}}</span>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -202,30 +223,24 @@
                             <div class="d-flex flex-column flex-md-row gap-5">
                                 <div class="fv-row flex-row-fluid fv-plugins-icon-container">
                                     <label class="required form-label">tên người nhận</label>
-                                    <input class="form-control" name="billing_order_address_1"
-                                        placeholder="Address Line 1" value="">
+                                    <input class="form-control" name="billing_order_fullname" value="" [(ngModel)]="request.receivingName">
                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                 </div>
                                 <div class="flex-row-fluid">
                                     <label class="form-label">số điện thoại</label>
-                                    <input class="form-control" name="billing_order_address_2"
-                                        placeholder="Address Line 2">
+                                    <input class="form-control" name="billing_order_address"[(ngModel)]="request.receivingPhone">
                                 </div>
                             </div>
                             <div class="d-flex flex-column flex-md-row">
                                 <div class="flex-row-fluid">
                                     <label class="form-label">địa chỉ nhận hàng</label>
-                                    <input class="form-control" name="billing_order_city" placeholder="" value="">
+                                    <input class="form-control" name="billing_order_city" placeholder="" value="" [(ngModel)]="request.receivingAddress">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a href="/jet-html-free/?page=apps/ecommerce/catalog/products" id="kt_ecommerce_edit_order_cancel"
-                        class="btn btn-light me-5">
-                        xóa hết
-                    </a>
                     <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-primary" (mousedown)="transaction()">
                         <span class="indicator-label">
                             thanh toán

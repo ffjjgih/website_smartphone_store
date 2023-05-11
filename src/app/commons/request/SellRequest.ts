@@ -9,7 +9,10 @@ export class SellRequest{
     transactionStatus!: string;
     typeSell!: string;
     img!: number;
-    companyId!: number;
+    transportCompanyId!: number;
     description!: string;
     sellProducts!: SellResult[];
+    receivingAddress!: string;
+    receivingPhone!: string;
+    receivingName!: string;
 }

@@ -31,4 +31,8 @@ export class ProductService {
     return this.http.get(this.api+`/get-sell?page=${filter.page}&size=${filter.size}&
     sort=${filter.sort}&search=${filter.search}&status=${filter.status}&fromDate=${filter.fromDate}&toDate=${filter.toDate}&order=${filter.order}`,this.httpOptions);
   }
+
+  getProductSellOffline(search:string) {
+    return this.http.get(this.api+`/get-sell-offline?search=${search}`,this.httpOptions);
+  }
 }

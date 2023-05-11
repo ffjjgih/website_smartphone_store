@@ -10,6 +10,8 @@ import { SellResult } from 'src/app/commons/result/SellResult';
 import { BillService } from 'src/app/services/Bill/bill.service';
 import { FileAttachmentService } from 'src/app/services/attachment/file-attachment.service';
 import { ProductService } from 'src/app/services/product/product.service';
+import { ProdcutSellOfflineResponse } from 'src/app/commons/response/ProdcutSellOfflineResponse';
+import { ProductSellOfflineResult } from 'src/app/commons/result/ProductSellOfflineResult';
 
 @Component({
   selector: 'app-sell-offline',
@@ -20,12 +22,13 @@ export class SellOfflineComponent implements OnInit {
   filter!: Filter;
   response!: SellResponse;
   request!:SellRequest;
-  products!:ProductsResponse;
+  products!:ProdcutSellOfflineResponse;
   results:SellResult[];
   result!:SellResult;
   attachmentRessponse!:AttachmentFileResponse;
   images:string="";
   open:boolean=false;
+  sumPrice:number=0;
   constructor(private productService: ProductService,
     private billService: BillService,
     private attachmentService:FileAttachmentService) {
@@ -36,6 +39,7 @@ export class SellOfflineComponent implements OnInit {
     this.request.transactionMethod="offline";
     this.request.transferMethod="money";
     this.request.typeSell="offline";
+    this.filter.search="";
     this.request.transfer247=true;
   }
 
@@ -44,8 +48,8 @@ export class SellOfflineComponent implements OnInit {
   }
 
   getProduct(filter: Filter) {
-    this.productService.getProductsToSell(filter).subscribe(data => {
-      this.products = data as ProductsResponse;
+    this.productService.getProductSellOffline(this.filter.search).subscribe(data => {
+      this.products = data as ProdcutSellOfflineResponse;
     });
   }
 
@@ -58,21 +62,16 @@ export class SellOfflineComponent implements OnInit {
       alert("vui lòng chọn phương thức thanh toán");
       return;
     }
+    
     if(this.request.transactionMethod=="offline" && this.request.transferMethod=="money"){
       this.request.transactionStatus="hoàn thành";
-      this.request.sellProducts=this.results;
-      this.billService.transaction(this.request).subscribe(data => {
-        this.response = data as SellResponse;
-      });
+      this.accept();
     }else if(this.request.transactionMethod=="online" && this.request.transferMethod=="money"){
-      this.request.transactionStatus="đang gửi cho bên vận chuyển";
-      this.request.sellProducts=this.results;
-      this.billService.transaction(this.request).subscribe(data => {
-        this.response = data as SellResponse;
-      });
+      this.request.transactionStatus="đang giao hàng";
+      this.accept();
     }else if(this.request.transactionMethod=="online" && this.request.transferMethod=="payment"){
       if(this.request.transfer247){
-        this.request.transactionStatus="đang gửi cho bên vận chuyển";
+        this.request.transactionStatus="đang giao hàng";
       }else{
         this.request.transactionStatus="đang xử lý";
       }
@@ -80,35 +79,47 @@ export class SellOfflineComponent implements OnInit {
     }else if(this.request.transactionMethod=="offline" && this.request.transferMethod=="payment"){
       this.open=true;
     }
-    console.log(this.open);
   }
 
   confirm(){
+    this.accept();
+  }
+
+  accept(){
+    this.request.money=this.sumPrice;
+    this.request.sellProducts=this.results;
     this.billService.transaction(this.request).subscribe(data => {
       this.response = data as SellResponse;
       this.open=false;
     });
   }
 
-  addProduct(product: ProductResult) {
+  addProduct(product: ProductSellOfflineResult) {
+    this.changePrice();
+    this.sumPrice+=product.versionResults[0].price;
     this.result=new SellResult();
-    this.result.productId=product.id;
-    this.result.productVersionId=product.productVersions[0].id;
+    this.result.productId=product.productId;
+    this.result.productVersionId=product.versionResults[0].productVersionId;
     this.result.quantity=1;
-    this.result.productVersions=product.productVersions;
-    this.result.name=product.name;
-    this.result.price=product.productVersions[0].price;
-    this.result.images=product.images;
-    this.result.brand=product.brand;
+    this.result.productVersions=product.versionResults;
+    this.result.maxQuantity=product.versionResults[0].quantity;
+    this.result.name=product.productName;
+    this.result.image=product.image;
+    this.result.warehouseId=product.versionResults[0].warehouseId;
+    this.result.price=product.versionResults[0].price;
+    this.result.images=product.image.id;
+    this.result.brand=product.brandName;
     this.results.push(this.result);
   }
 
-  changeQuantity(result:SellResult,quantity:number){
-    result.quantity=quantity;
-  }
-
-  removeProduct(result:SellResult){
-    this.results=this.results.filter(item=>item.productId!=result.productId);
+  removeProduct(index:number){
+    for(let i=0;i<this.results.length;i++){
+      if(this.results[i].productId==this.results[index].productId){
+        this.results.splice(i,1);
+      }
+    }
+    this.changePrice();
+    
   }
 
   uploadFile(event: any) {
@@ -135,7 +146,7 @@ export class SellOfflineComponent implements OnInit {
   }
 
   selectCompany(method:any){
-    this.request.companyId=method.target.value;
+    this.request.transportCompanyId=method.target.value;
   }
 
   model(){
@@ -144,6 +155,20 @@ export class SellOfflineComponent implements OnInit {
 
   changeTypeTransfer(){
     this.request.transfer247=!this.request.transfer247;
+  }
+
+  changePrice(){
+    this.sumPrice=0;
+    this.results.forEach(item=>{
+      this.sumPrice+=item.price*item.quantity;
+    });
+  }
+
+  checkQuantity(index:number){
+    if(this.results[index].quantity>this.results[index].maxQuantity){
+      this.results[index].quantity=this.results[index].maxQuantity;
+    }
+    this.changePrice();
   }
 
 }

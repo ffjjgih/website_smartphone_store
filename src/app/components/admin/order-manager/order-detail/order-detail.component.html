@@ -10,14 +10,14 @@
                     <!--begin:::Tab item-->
                     <li class="nav-item">
                         <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                            href="#kt_ecommerce_sales_order_summary">Order Summary</a>
+                            href="#kt_ecommerce_sales_order_summary">thông tin chung</a>
                     </li>
                     <!--end:::Tab item-->
 
                     <!--begin:::Tab item-->
                     <li class="nav-item">
                         <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                            href="#kt_ecommerce_sales_order_history">Order History</a>
+                            href="#kt_ecommerce_sales_order_history">lịch sử</a>
                     </li>
                 </ul>
                 <a href="/jet-html-free/?page=apps/ecommerce/sales/listing"
@@ -34,7 +34,7 @@
                 <div class="card card-flush py-4 flex-row-fluid">
                     <div class="card-header">
                         <div class="card-title">
-                            <h2>đơn hàng (#14534)</h2>
+                            <h2>đơn hàng ({{response.billId}})</h2>
                         </div>
                     </div>
                     <div class="card-body pt-0">
@@ -58,7 +58,7 @@
                                             </div>
                                         </td>
 
-                                        <td class="fw-bolder text-end">06/04/2023</td>
+                                        <td class="fw-bolder text-end">{{response.createdDate}}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">
@@ -80,9 +80,7 @@
                                             </div>
                                         </td>
                                         <td class="fw-bolder text-end">
-                                            Online
-                                            <img src="/jet-html-free/assets/media/svg/card-logos/visa.svg"
-                                                class="w-50px ms-2">
+                                            {{response.transferMethod}}
                                         </td>
                                     </tr>
                                     <tr>
@@ -101,7 +99,7 @@
                                                 công ty vận chuyển
                                             </div>
                                         </td>
-                                        <td class="fw-bolder text-end">abc</td>
+                                        <td class="fw-bolder text-end">{{response.receiveCompany}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -138,17 +136,7 @@
 
                                         <td class="fw-bolder text-end">
                                             <div class="d-flex align-items-center justify-content-end">
-                                                <div class="symbol symbol-circle symbol-25px overflow-hidden me-3">
-                                                    <a href="/jet-html-free/?page=apps/ecommerce/customers/details">
-                                                        <div class="symbol-label">
-                                                            <img src="/jet-html-free/assets/media/avatars/300-23.jpg"
-                                                                alt="Dan Wilson" class="w-100">
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <a href="/jet-html-free/?page=apps/ecommerce/customers/details"
-                                                    class="text-gray-600 text-hover-primary">
-                                                    Bùi Cao Lâm </a>
+                                                    {{response.shipperName}}
                                             </div>
                                         </td>
                                     </tr>
@@ -164,11 +152,11 @@
                                                         <path
                                                             d="M21 5H2.99999C2.69999 5 2.49999 5.10005 2.29999 5.30005L11.2 13.3C11.7 13.7 12.4 13.7 12.8 13.3L21.7 5.30005C21.5 5.10005 21.3 5 21 5Z"
                                                             fill="currentColor"></path>
-                                                    </svg></span>mã nhân viên
+                                                    </svg></span>số điện thoại
                                             </div>
                                         </td>
                                         <td class="fw-bolder text-end">
-                                            dam@consilting.com
+                                            {{response.shipperPhone}}
                                         </td>
                                     </tr>
                                     <tr>
@@ -186,7 +174,7 @@
                                             </div>
                                         </td>
 
-                                        <td class="fw-bolder text-end">+6141 234 567</td>
+                                        <td class="fw-bolder text-end">{{response.receiveCompany}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -224,7 +212,7 @@
                                                     data-bs-original-title="View the invoice generated by this order."></i>
                                             </div>
                                         </td>
-                                        <td class="fw-bolder text-end">#INV-000414</td>
+                                        <td class="fw-bolder text-end">{{response.fullName}}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">
@@ -246,7 +234,7 @@
                                             </div>
                                         </td>
                                         <td class="fw-bolder text-end"><a href="#"
-                                                class="text-gray-600 text-hover-primary">Bùi cao lâm</a></td>
+                                                class="text-gray-600 text-hover-primary">{{response.numberPhone}}</a></td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">
@@ -261,13 +249,13 @@
                                                             d="M11.3 9.40002C11.3 10.2 11.1 10.9 10.7 11.3C10.3 11.7 9.8 11.9 9.2 11.9C8.8 11.9 8.40001 11.8 8.10001 11.6C7.80001 11.4 7.50001 11.2 7.40001 10.8C7.20001 10.4 7.10001 10 7.10001 9.40002C7.10001 8.80002 7.20001 8.4 7.30001 8C7.40001 7.6 7.7 7.29998 8 7.09998C8.3 6.89998 8.7 6.80005 9.2 6.80005C9.5 6.80005 9.80001 6.9 10.1 7C10.4 7.1 10.6 7.3 10.8 7.5C11 7.7 11.1 8.00005 11.2 8.30005C11.3 8.60005 11.3 9.00002 11.3 9.40002ZM10.1 9.40002C10.1 8.80002 10 8.39998 9.90001 8.09998C9.80001 7.79998 9.6 7.70007 9.2 7.70007C9 7.70007 8.8 7.80002 8.7 7.90002C8.6 8.00002 8.50001 8.2 8.40001 8.5C8.40001 8.7 8.30001 9.10002 8.30001 9.40002C8.30001 9.80002 8.30001 10.1 8.40001 10.4C8.40001 10.6 8.5 10.8 8.7 11C8.8 11.1 9 11.2001 9.2 11.2001C9.5 11.2001 9.70001 11.1 9.90001 10.8C10 10.4 10.1 10 10.1 9.40002ZM14.9 7.80005L9.40001 16.7001C9.30001 16.9001 9.10001 17.1 8.90001 17.1C8.80001 17.1 8.70001 17.1 8.60001 17C8.50001 16.9 8.40001 16.8001 8.40001 16.7001C8.40001 16.6001 8.4 16.5 8.5 16.4L14 7.5C14.1 7.3 14.2 7.19998 14.3 7.09998C14.4 6.99998 14.5 7 14.6 7C14.7 7 14.8 6.99998 14.9 7.09998C15 7.19998 15 7.30002 15 7.40002C15.2 7.30002 15.1 7.50005 14.9 7.80005ZM16.6 14.2001C16.6 15.0001 16.4 15.7 16 16.1C15.6 16.5 15.1 16.7001 14.5 16.7001C14.1 16.7001 13.7 16.6 13.4 16.4C13.1 16.2 12.8 16 12.7 15.6C12.5 15.2 12.4 14.8001 12.4 14.2001C12.4 13.3001 12.6 12.7 12.9 12.3C13.2 11.9 13.7 11.7001 14.5 11.7001C14.8 11.7001 15.1 11.8 15.4 11.9C15.7 12 15.9 12.2 16.1 12.4C16.3 12.6 16.4 12.9001 16.5 13.2001C16.6 13.4001 16.6 13.8001 16.6 14.2001ZM15.4 14.1C15.4 13.5 15.3 13.1 15.2 12.9C15.1 12.6 14.9 12.5 14.5 12.5C14.3 12.5 14.1 12.6001 14 12.7001C13.9 12.8001 13.8 13.0001 13.7 13.2001C13.6 13.4001 13.6 13.8 13.6 14.1C13.6 14.7 13.7 15.1 13.8 15.4C13.9 15.7 14.1 15.8 14.5 15.8C14.8 15.8 15 15.7 15.2 15.4C15.3 15.2 15.4 14.7 15.4 14.1Z"
                                                             fill="currentColor"></path>
                                                     </svg></span>
-                                                <!--end::Svg Icon--> email
+                                                <!--end::Svg Icon--> địa chỉ
                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                                     title=""
                                                     data-bs-original-title="Reward value earned by customer when purchasing this order."></i>
                                             </div>
                                         </td>
-                                        <td class="fw-bolder text-end">600</td>
+                                        <td class="fw-bolder text-end">{{response.address}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -290,10 +278,11 @@
                                     </div>
                                 </div>
                                 <div class="card-body pt-0">
-                                    Unit 1/23 Hastings Road,<br>
-                                    Melbourne 3000,<br>
-                                    Victoria,<br>
-                                    Australia.
+                                    FPT Polytechnic Hanoi,<br> 
+                                    Phố Trịnh Văn Bô,<br> 
+                                    Phương Canh,<br> 
+                                    Nam Từ Liêm,<br> 
+                                    Hà Nội.
                                 </div>
                             </div>
                             <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
@@ -307,17 +296,14 @@
                                     </div>
                                 </div>
                                 <div class="card-body pt-0">
-                                    Unit 1/23 Hastings Road,<br>
-                                    Melbourne 3000,<br>
-                                    Victoria,<br>
-                                    Australia.
+                                    {{response.receiveAddress}}
                                 </div>
                             </div>
                         </div>
                         <div class="card card-flush py-4 flex-row-fluid overflow-hidden">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <h2>đơn hàng #14534</h2>
+                                    <h2>đơn hàng</h2>
                                 </div>
                             </div>
                             <div class="card-body pt-0">
@@ -333,57 +319,29 @@
                                             </tr>
                                         </thead>
                                         <tbody class="fw-bold text-gray-600">
-                                            <tr>
+                                            <tr *ngFor="let result of response.detailBills">
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <a href="/jet-html-free/?page=apps/ecommerce/catalog/edit-product"
                                                             class="symbol symbol-50px">
                                                             <span class="symbol-label"
-                                                                style="background-image:url(/jet-html-free/assets/media//stock/ecommerce/1.gif);"></span>
+                                                            [style.background-image]="'url(data:' + result.image.type + ';base64,' + result.image.data + ')'"></span>
                                                         </a>
                                                         <div class="ms-5">
-                                                            <a href="/jet-html-free/?page=apps/ecommerce/catalog/edit-product"
-                                                                class="fw-bolder text-gray-600 text-hover-primary">Product1</a>
+                                                            {{result.name}}
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="text-end">
-                                                    2 </td>
+                                                    {{result.quantity}}
+                                                </td>
                                                 <td class="text-end">
                                                 </td>
                                                 <td class="text-end">
-                                                    $120.00
+                                                    {{ result.price | currency:'VND' }}
                                                 </td>
                                                 <td class="text-end">
-                                                    $240.00
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <a href="/jet-html-free/?page=apps/ecommerce/catalog/edit-product"
-                                                            class="symbol symbol-50px">
-                                                            <span class="symbol-label"
-                                                                style="background-image:url(/jet-html-free/assets/media//stock/ecommerce/100.gif);"></span>
-                                                        </a>
-                                                        <div class="ms-5">
-                                                            <a href="/jet-html-free/?page=apps/ecommerce/catalog/edit-product"
-                                                                class="fw-bolder text-gray-600 text-hover-primary">Footwear</a>
-                                                            <div class="fs-7 text-muted">Delivery Date: 06/04/2023</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-end">
-                                                    01596004 </td>
-                                                <td class="text-end">
-                                                    1
-                                                </td>
-                                                <td class="text-end">
-                                                    $24.00
-                                                </td>
-                                                <td class="text-end">
-                                                    $24.00
+                                                    {{result.sumPrice | currency:'VND'}}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -391,7 +349,7 @@
                                                     tổng tiền
                                                 </td>
                                                 <td class="text-dark fs-3 fw-boldest text-end">
-                                                    $269.00
+                                                    {{response.price | currency:'VND'}}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -406,7 +364,7 @@
                         <div class="card card-flush py-4 flex-row-fluid">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <h2>Order History</h2>
+                                    <h2>lịch sử đơn hàng</h2>
                                 </div>
                             </div>
                             <div class="card-body pt-0">
@@ -422,12 +380,12 @@
                                             </tr>
                                         </thead>
                                         <tbody class="fw-bold text-gray-600">
-                                            <tr>
-                                                <td>06/04/2023</td>
+                                            <tr *ngFor="let result of response.detailOrders">
+                                                <td>{{result.date}}</td>
                                                 <td>
-                                                    Order completed </td>
+                                                    {{result.description}}</td>
                                                 <td>
-                                                    <div class="badge badge-light-success">Completed</div>
+                                                    <div class="badge badge-light-success">{{result.status}}</div>
                                                 </td>
                                             </tr>
                                         </tbody>

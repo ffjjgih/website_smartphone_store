@@ -22,4 +22,12 @@ export class BillService {
   transaction(request:SellRequest) {
     return this.http.post(this.api+'/transaction', request,this.httpOptions);
   }
+
+  getBills(search:string, status:string, page:number, size:number) {
+    return this.http.get(this.api+'/getBills?search='+search+'&status='+status+'&page='+page+'&size='+size,this.httpOptions);
+  }
+
+  getdetailBill(id:number) {
+    return this.http.get(this.api+'/detail/'+id,this.httpOptions);
+  }
 }

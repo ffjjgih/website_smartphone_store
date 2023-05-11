@@ -97,7 +97,7 @@ export class CreateProductComponent implements OnInit {
     if (file) {
       this.attachmentService.uplodadFileDoc(file).subscribe(res=>{
         this.attachmentResponse = res as AttachmentFileResponse;
-        this.request.midia=this.attachmentResponse.id;
+        this.request.media=this.attachmentResponse.id;
       });
     }
   }

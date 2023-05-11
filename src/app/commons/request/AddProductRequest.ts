@@ -1,6 +1,7 @@
 import { ProductConfigDetail } from "../result/productConfigDetail";
 import { ProductVersion } from "../result/productVersion";
 
+
 export class AddProductRequest{
     name!: string;
     description!: string;
@@ -13,7 +14,7 @@ export class AddProductRequest{
     seriesId!: number;
     images!: number[];
     img!: number;
-    midia!: number;
+    media!: number;
     barcode!: string;
     versions!: ProductVersion[];
     detail!: ProductConfigDetail;

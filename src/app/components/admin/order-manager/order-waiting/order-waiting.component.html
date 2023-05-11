@@ -32,12 +32,12 @@
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th class="min-w-100px sorting" tabindex="0"
                                         aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
-                                        aria-label="Order ID: activate to sort column ascending"
-                                        style="width: 150px;">mã đơn hàng</th>
+                                        aria-label="Order ID: activate to sort column ascending" style="width: 150px;">
+                                        mã đơn hàng</th>
                                     <th class="min-w-175px sorting" tabindex="0"
                                         aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
-                                        aria-label="Customer: activate to sort column ascending"
-                                        style="width: 280px;">người mua</th>
+                                        aria-label="Customer: activate to sort column ascending" style="width: 280px;">
+                                        người mua</th>
                                     <th class="text-end min-w-100px sorting" tabindex="0"
                                         aria-controls="kt_ecommerce_sales_table" rowspan="1" colspan="1"
                                         aria-label="Total: activate to sort column ascending" style="width: 143.281px;">
@@ -55,50 +55,37 @@
                                 </tr>
                             </thead>
                             <tbody class="fw-bold text-gray-600">
-                                <tr class="odd">
+                                <tr class="odd" *ngFor="let result of response.data">
                                     <td data-kt-ecommerce-order-filter="order_id">
-                                        <a href="/jet-html-free/?page=apps/ecommerce/sales/details"
-                                            class="text-gray-800 text-hover-primary fw-bolder">
-                                            VB1231231233 </a>
+                                        {{result.billId}}
                                     </td>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-                                                <a href="/jet-html-free/?page=apps/user-management/users/view">
-                                                    <div class="symbol-label">
-                                                        <img src="/jet-html-free/assets/media/avatars/300-6.jpg"
-                                                            alt="Emma Smith" class="w-100">
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="ms-5">
-                                                <a href="/jet-html-free/?page=apps/user-management/users/view"
-                                                    class="text-gray-800 text-hover-primary fs-5 fw-bolder">bùi cao lâm</a>
-                                            </div>
-                                        </div>
+                                        {{result.fullName}}
                                     </td>
                                     <td class="text-end pe-0" data-order="Completed">
-                                        <div class="badge badge-light-success">0372905365</div>
+                                        <div class="badge badge-light-success">{{result.phoneNumber}}</div>
                                     </td>
                                     <td class="text-end pe-0">
-                                        <span class="fw-bolder">10000000VND</span>
+                                        <span class="fw-bolder">{{result.price}}</span>
                                     </td>
                                     <td class="text-end" data-order="2023-04-04">
-                                        <span class="fw-bolder">04/04/2023</span>
+                                        <span class="fw-bolder">{{result.createdDate}}</span>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center list-action">
-                                            <button class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top"
-                                                title="" data-original-title="View" (mousedown)="goToOrderDetail(1)">
+                                            <button class="badge badge-info mr-2" data-toggle="tooltip"
+                                                data-placement="top" title="" data-original-title="View"
+                                                (mousedown)="goToOrderDetail(1)">
                                                 <i class="bi bi-eye mr-0"></i>
                                             </button>
-                                            <button class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top"
-                                                title="" data-original-title="Edit" (mousedown)="approveOrder('chấp nhận', 1)">
+                                            <button class="badge bg-success mr-2" data-toggle="tooltip"
+                                                data-placement="top" title="" data-original-title="Edit"
+                                                (mousedown)="approveOrder('chấp nhận', 1)">
                                                 <i class="bi bi-pencil-fill mr-0"></i>
                                             </button>
-                                            <button class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top"
-                                                title="" data-original-title="Delete" (mousedown)="approveOrder('từ chối',1)">
+                                            <button class="badge bg-warning mr-2" data-toggle="tooltip"
+                                                data-placement="top" title="" data-original-title="Delete"
+                                                (mousedown)="approveOrder('từ chối',1)">
                                                 <i class="bi bi-trash mr-0"></i>
                                             </button>
                                         </div>
@@ -117,7 +104,7 @@
                                         <option value="25">25</option>
                                         <option value="50">50</option>
                                         <option value="100">100</option>
-                            </select></label></div>
+                                    </select></label></div>
                         </div>
                         <div
                             class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
